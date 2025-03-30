@@ -5,21 +5,22 @@ import java.util.Date;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "payment")
 public class PaymentEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	
-    @Column(nullable = false)
+    @Column(name = "date" , nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date date;
 
-    @Column(nullable = false)
+    @Column(name = "price" , nullable = false)
 	private Integer price;
     
     
-    @OneToOne(mappedBy = "payment_contract")
+    @OneToOne(mappedBy = "payment_of_contract")
     private ContractEntity contractEntity;
     
     @OneToOne(mappedBy = "payment_maintenance")

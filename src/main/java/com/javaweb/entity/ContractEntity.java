@@ -6,40 +6,46 @@ import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "contracts")
 public class ContractEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 	
 
-    @Column(nullable = false)
+    @Column(name = "status", nullable = false)
 	private String status;
 	
 
-    @Column(nullable = false)
+    @Column(name = "datefrom", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dateFrom;
     
 
-    @Column(nullable = false)
+    @Column(name = "dateto" , nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dateTo;
     
+    @Column(name = "price", nullable = false)
+    private Long price;
     
     @OneToOne
-    @JoinColumn(name = "payment_id") // Phương thức thanh toán
-    private PaymentEntity payment_contract;
+    @JoinColumn(name = "paymentid")          // Phương thức thanh toán
+    private PaymentEntity payment_of_contract;
     
-    @ManyToMany(mappedBy = "contractEntities")
-    private List<CarEntity> carEntities;
+    @ManyToMany(mappedBy = "contracts", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<CarEntity> cars;
+    
+    @ManyToOne
+    @JoinColumn(name = "customerid")
+    private CustomerEntity  customer;
 
 	
-
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -67,25 +73,38 @@ public class ContractEntity {
 		this.dateTo = dateTo;
 	}
 
-
-	
-
-	public PaymentEntity getPayment_contract() {
-		return payment_contract;
+	public Long getPrice() {
+		return price;
 	}
 
-	public void setPayment_contract(PaymentEntity payment_contract) {
-		this.payment_contract = payment_contract;
+	public void setPrice(Long price) {
+		this.price = price;
 	}
 
-	public List<CarEntity> getCarEntities() {
-		return carEntities;
+	public PaymentEntity getPayment_of_contract() {
+		return payment_of_contract;
 	}
 
-	public void setCarEntities(List<CarEntity> carEntities) {
-		this.carEntities = carEntities;
+	public void setPayment_of_contract(PaymentEntity payment_of_contract) {
+		this.payment_of_contract = payment_of_contract;
 	}
 
-	
+	public List<CarEntity> getCars() {
+		return cars;
+	}
+
+	public void setCars(List<CarEntity> cars) {
+		this.cars = cars;
+	}
+
+	public CustomerEntity getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(CustomerEntity customer) {
+		this.customer = customer;
+	}
+    
+    
 	
 }

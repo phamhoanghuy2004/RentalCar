@@ -6,58 +6,65 @@ import jakarta.persistence.*;
 
 
 @Entity
+@Table(name = "carline")
 public class CarLineEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 	
 
-    @Column(nullable = false)
+    @Column(name = "code" , nullable = false)
 	private String code;
 	
 
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
 	private String name;
 	
 
-    @Column(nullable = false)
-	private int status;
+    @Column(name = "status" , nullable = false)
+	private String status;
 	
-	@ManyToMany(mappedBy = "carLineEntities")
-    private List<CarBrandEntity> carBrandEnties;
-	
-	
+	@OneToMany(mappedBy = "line", fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+    private List<CarEntity> cars;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getCode() {
 		return code;
 	}
+
 	public void setCode(String code) {
 		this.code = code;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public int getStatus() {
+
+	public String getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
+
+	public void setStatus(String status) {
 		this.status = status;
 	}
-	public List<CarBrandEntity> getCarBrandEnties() {
-		return carBrandEnties;
+
+	public List<CarEntity> getCars() {
+		return cars;
 	}
-	public void setCarBrandEnties(List<CarBrandEntity> carBrandEnties) {
-		this.carBrandEnties = carBrandEnties;
+
+	public void setCars(List<CarEntity> cars) {
+		this.cars = cars;
 	}
 	
 	 

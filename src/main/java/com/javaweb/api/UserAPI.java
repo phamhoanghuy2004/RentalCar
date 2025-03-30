@@ -21,7 +21,7 @@ import com.javaweb.beans.ResultDTO;
 import com.javaweb.beans.UserRequest;
 import com.javaweb.beans.CustomerDTO;
 import com.javaweb.customeExceptions.FiledRequiredException;
-import com.javaweb.entity.UserEntity;
+import com.javaweb.entity.PersonEntity;
 import com.javaweb.service.UserService;
 import com.javaweb.util.EmailService;
 import com.javaweb.util.OTPGenerate;

@@ -1,97 +1,62 @@
 package com.javaweb.entity;
 
-import java.util.List;
 
-import jakarta.persistence.CascadeType;
+
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-
-
-
-
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "address")
 public class AddressEntity {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
+	
+	@Column(name = "province", nullable = false)
+	private String province;  //Tỉnh/Thành phố
+	
+	@Column(name = "district", nullable = false)
+	private String district;  //Quận/Huyện
+	
+	
+	@Column(name = "ward", nullable = false)
+	private String ward;   //Phường/Xã
+	
+	@Column(name = "street", nullable = false)
+	private String street;  // địa chỉ chi tiết 
+	
+	@OneToOne(mappedBy = "userAddress", fetch = FetchType.EAGER)
+    private UserEntity user;
+	
+	@OneToOne(mappedBy = "carAddress", fetch = FetchType.EAGER)
+    private CarEntity car;
+	
+	@OneToOne(mappedBy = "customerAddress", fetch = FetchType.EAGER)
+    private CustomerEntity customer;
 	
 
-	@Column(nullable = false)
-	private String street;
-	
-	
-	@Column(nullable = false)
-	private String district;
-	
-	
-	@Column(nullable = false)
-	private String city;
-	
-	
-	
-	@OneToMany(mappedBy = "address_staff_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<StaffEntity> staffEntities;
-	
-	@OneToMany(mappedBy = "address_owner_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<OwnerEntity> ownerEntities;
-	
-	@OneToMany(mappedBy = "address_customer_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<CustomerEntity> customerEntities;
-	
-	@OneToMany(mappedBy = "address_car_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<CarEntity> carEntities;
-	
-	
-	
-	
-
-	public List<StaffEntity> getStaffEntities() {
-		return staffEntities;
-	}
-
-	public void setStaffEntities(List<StaffEntity> staffEntities) {
-		this.staffEntities = staffEntities;
-	}
-
-	public List<OwnerEntity> getOwnerEntities() {
-		return ownerEntities;
-	}
-
-	public void setOwnerEntities(List<OwnerEntity> ownerEntities) {
-		this.ownerEntities = ownerEntities;
-	}
-
-	public List<CustomerEntity> getCustomerEntities() {
-		return customerEntities;
-	}
-
-	public void setCustomerEntities(List<CustomerEntity> customerEntities) {
-		this.customerEntities = customerEntities;
-	}
-
-	
-
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getStreet() {
-		return street;
+	public String getProvince() {
+		return province;
 	}
 
-	public void setStreet(String street) {
-		this.street = street;
+	public void setProvince(String province) {
+		this.province = province;
 	}
 
 	public String getDistrict() {
@@ -102,24 +67,45 @@ public class AddressEntity {
 		this.district = district;
 	}
 
-	public String getCity() {
-		return city;
+	public String getWard() {
+		return ward;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
+	public void setWard(String ward) {
+		this.ward = ward;
 	}
 
-	public List<CarEntity> getCarEntities() {
-		return carEntities;
+	public String getStreet() {
+		return street;
 	}
 
-	public void setCarEntities(List<CarEntity> carEntities) {
-		this.carEntities = carEntities;
+	public void setStreet(String street) {
+		this.street = street;
 	}
 
+	public PersonEntity getUser() {
+		return user;
+	}
 
-	
-	
+	public CarEntity getCar() {
+		return car;
+	}
+
+	public void setCar(CarEntity car) {
+		this.car = car;
+	}
+
+	public CustomerEntity getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(CustomerEntity customer) {
+		this.customer = customer;
+	}
+
+	public void setUser(UserEntity user) {
+		this.user = user;
+	}
+
 
 }

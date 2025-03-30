@@ -7,103 +7,80 @@ import jakarta.persistence.*;
 
 
 @Entity
+@Table(name = "car")
 public class CarEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 	
 
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
 	private String name;
 	
 
-    @Column(nullable = false)
+    @Column(name = "description" , nullable = false)
 	private String description;
 	
 
-    @Column(nullable = false)
+    @Column(name = "status" , nullable = false)
 	private String status;
 	
-	@Lob
-    @Column(columnDefinition = "LONGBLOB") 
-	private byte[] picture; 
-	
 
-    @Column(nullable = false)
-	private String indentify;
+    @Column(name = "picture" , nullable = false) 
+	private String picture; 
+	
+    
+    @Column(name = "indentify", nullable = false)
+	private String indentify;   // bien so
+    
+    @Column(name = "dateofstart", nullable = false)
+   	@Temporal(TemporalType.DATE)
+   	private Date dateOfStart;
+       
+    @Column(name = "price", nullable = false)
+   	private Long price;
+    
+	
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn (name = "addressid", referencedColumnName = "id")
+    private AddressEntity carAddress;
+	
 	
 	@ManyToOne
-    @JoinColumn(name = "address_car_id",  unique = false)
-    private AddressEntity address_car_id;
+	@JoinColumn(name = "staffid")
+	private UserEntity staff_of_car;
 	
-
-    @Column(nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date dateOfStart;
-	 
+	@OneToMany(mappedBy = "car", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<MaintenanceBillEntity> maintenanceBills;
+	
+	
 	@ManyToOne
-	@JoinColumn(name = "brand_id",  unique = false)
+	@JoinColumn(name = "brandid")
     private CarBrandEntity brand;
 	
 	@ManyToOne
-	@JoinColumn(name = "staff_id", unique = false)
-	private StaffEntity staff_quan_li;
+	@JoinColumn(name = "lineid")
+    private CarLineEntity line;
 	
-	private int price;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
-	    name = "Car_Contract",
-	    joinColumns = @JoinColumn(name = "car_id"),
-	    inverseJoinColumns = @JoinColumn(name = "contract_id")
+	    name = "car_contract",
+	    joinColumns = @JoinColumn(name = "carid"),
+	    inverseJoinColumns = @JoinColumn(name = "contractid")
 	)
+	private List<ContractEntity> contracts;
 	
-	private List<ContractEntity> contractEntities;
-	
-	@OneToMany(mappedBy = "car_maintenance")
-	private List<MaintenanceBillEntity> maintenanceBillEntity;
-	
-	
-	
-	public List<MaintenanceBillEntity> getMaintenanceBillEntity() {
-		return maintenanceBillEntity;
-	}
+	@ManyToOne
+	@JoinColumn(name = "voucherid")
+	private VoucherEntity  voucher;
 
-	public void setMaintenanceBillEntity(List<MaintenanceBillEntity> maintenanceBillEntity) {
-		this.maintenanceBillEntity = maintenanceBillEntity;
-	}
-
-	public List<ContractEntity> getContractEntities() {
-		return contractEntities;
-	}
-
-	public void setContractEntities(List<ContractEntity> contractEntities) {
-		this.contractEntities = contractEntities;
-	}
-
-
-	public StaffEntity getStaff_quan_li() {
-		return staff_quan_li;
-	}
-
-	public void setStaff_quan_li(StaffEntity staff_quan_li) {
-		this.staff_quan_li = staff_quan_li;
-	}
-
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public int getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
 	}
 
 	public String getName() {
@@ -130,11 +107,11 @@ public class CarEntity {
 		this.status = status;
 	}
 
-	public byte[] getPicture() {
+	public String getPicture() {
 		return picture;
 	}
 
-	public void setPicture(byte[] picture) {
+	public void setPicture(String picture) {
 		this.picture = picture;
 	}
 
@@ -146,22 +123,44 @@ public class CarEntity {
 		this.indentify = indentify;
 	}
 
-	
-
-	public AddressEntity getAddress_car_id() {
-		return address_car_id;
-	}
-
-	public void setAddress_car_id(AddressEntity address_car_id) {
-		this.address_car_id = address_car_id;
-	}
-
 	public Date getDateOfStart() {
 		return dateOfStart;
 	}
 
 	public void setDateOfStart(Date dateOfStart) {
 		this.dateOfStart = dateOfStart;
+	}
+
+	public Long getPrice() {
+		return price;
+	}
+
+	public void setPrice(Long price) {
+		this.price = price;
+	}
+
+	public AddressEntity getCarAddress() {
+		return carAddress;
+	}
+
+	public void setCarAddress(AddressEntity carAddress) {
+		this.carAddress = carAddress;
+	}
+
+	public UserEntity getStaff_of_car() {
+		return staff_of_car;
+	}
+
+	public void setStaff_of_car(UserEntity staff_of_car) {
+		this.staff_of_car = staff_of_car;
+	}
+
+	public List<MaintenanceBillEntity> getMaintenanceBills() {
+		return maintenanceBills;
+	}
+
+	public void setMaintenanceBills(List<MaintenanceBillEntity> maintenanceBills) {
+		this.maintenanceBills = maintenanceBills;
 	}
 
 	public CarBrandEntity getBrand() {
@@ -171,7 +170,31 @@ public class CarEntity {
 	public void setBrand(CarBrandEntity brand) {
 		this.brand = brand;
 	}
-	 
+
+	public CarLineEntity getLine() {
+		return line;
+	}
+
+	public void setLine(CarLineEntity line) {
+		this.line = line;
+	}
+
+	public List<ContractEntity> getContracts() {
+		return contracts;
+	}
+
+	public void setContracts(List<ContractEntity> contracts) {
+		this.contracts = contracts;
+	}
+
+	public VoucherEntity getVoucher() {
+		return voucher;
+	}
+
+	public void setVoucher(VoucherEntity voucher) {
+		this.voucher = voucher;
+	}
+
 	
 	
 }

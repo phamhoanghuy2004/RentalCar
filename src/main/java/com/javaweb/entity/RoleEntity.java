@@ -5,81 +5,31 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "roles")
 public class RoleEntity {
  	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
  	
 
-    @Column(nullable = false)
+    @Column(name = "name" , nullable = false)
  	private String name;
  	
 
-    @Column(nullable = false)
+    @Column(name = "code" , nullable = false)
  	private String code;
  	
- 	@OneToMany(mappedBy = "role_staff", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
- 	private List<StaffEntity> staffEntities;
- 	
- 	@OneToMany(mappedBy = "role_owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
- 	private List<OwnerEntity> OwnerEntities;
- 	
- 	@OneToMany(mappedBy = "role_customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
- 	private List<CustomerEntity> customerEntities;
- 	
-	
-	
-	
-
-	public List<StaffEntity> getStaffEntities() {
-		return staffEntities;
-	}
+ 	@OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+ 	private List<UserEntity> listUser ;
 
 
-
-	public void setStaffEntities(List<StaffEntity> staffEntities) {
-		this.staffEntities = staffEntities;
-	}
-
-
-
-	public List<OwnerEntity> getOwnerEntities() {
-		return OwnerEntities;
-	}
-
-
-
-	public void setOwnerEntities(List<OwnerEntity> ownerEntities) {
-		OwnerEntities = ownerEntities;
-	}
-
-
-
-	public List<CustomerEntity> getCustomerEntities() {
-		return customerEntities;
-	}
-
-
-
-	public void setCustomerEntities(List<CustomerEntity> customerEntities) {
-		this.customerEntities = customerEntities;
-	}
-
-
-
-	
-
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-
-
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
-
-
 
 	public String getName() {
 		return name;
@@ -96,5 +46,14 @@ public class RoleEntity {
 	public void setCode(String code) {
 		this.code = code;
 	}
+
+	public List<UserEntity> getListUser() {
+		return listUser;
+	}
+
+	public void setListUser(List<UserEntity> listUser) {
+		this.listUser = listUser;
+	}
  	
+ 		
 }
