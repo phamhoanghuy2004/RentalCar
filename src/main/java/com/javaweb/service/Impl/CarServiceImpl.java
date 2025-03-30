@@ -68,12 +68,12 @@ public class CarServiceImpl implements CarService{
 		for (CarEntity item : listCarEntity) {
 			CarDTO carDTO = new CarDTO();
 			
-			carDTO.setId(item.getId());
+//			carDTO.setId(item.getId());
 			carDTO.setName(item.getName());
 			carDTO.setDateOfStart(item.getDateOfStart());
 			carDTO.setDescription(item.getDescription());
-			carDTO.setPicture(item.getPicture());
-			carDTO.setPrice(item.getPrice());
+//			carDTO.setPicture(item.getPicture());
+//			carDTO.setPrice(item.getPrice());
 			listCarDTO.add(carDTO);
 			
 		}

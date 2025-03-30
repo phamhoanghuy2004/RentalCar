@@ -29,10 +29,10 @@ public class CarBrandServiceImpl implements CarBrandService  {
 		List<CarBrandDTO> listCarBrandDTO = new ArrayList<>();
 		for(CarBrandEntity item : listCarBrandEntity  ) {
 			CarBrandDTO tmp = new CarBrandDTO();
-			tmp.setCategoryID(item.getId());
+//			tmp.setCategoryID(item.getId());
 			tmp.setName(item.getName());
 			tmp.setDescription(item.getDescription());
-			tmp.setLogo(item.getLogo());
+//			tmp.setLogo(item.getLogo());
 			
 			listCarBrandDTO.add(tmp);
 		}
@@ -45,10 +45,10 @@ public class CarBrandServiceImpl implements CarBrandService  {
 		List<CarBrandDTO> listCarBrandDTO = new ArrayList<>();
 		for(CarBrandEntity item : listCarBrandEntity  ) {
 			CarBrandDTO tmp = new CarBrandDTO();
-			tmp.setCategoryID(item.getId());
+//			tmp.setCategoryID(item.getId());
 			tmp.setName(item.getName());
 			tmp.setDescription(item.getDescription());
-			tmp.setLogo(item.getLogo());
+//			tmp.setLogo(item.getLogo());
 			
 			// tinh so xe trong car brand
 			List<CarEntity> listCatEntity = carRepository.findByBrand_IdAndStatus(item.getId(), "Available");

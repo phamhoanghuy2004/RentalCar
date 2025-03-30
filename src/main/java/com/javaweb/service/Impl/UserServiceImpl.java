@@ -13,7 +13,7 @@ import com.javaweb.beans.UserRequest;
 import com.javaweb.entity.AddressEntity;
 import com.javaweb.entity.CustomerEntity;
 import com.javaweb.entity.RoleEntity;
-import com.javaweb.entity.UserEntity;
+import com.javaweb.entity.PersonEntity;
 import com.javaweb.repository.AddressRepository;
 import com.javaweb.repository.RoleRepository;
 import com.javaweb.repository.UserRepository;
@@ -53,10 +53,10 @@ public class UserServiceImpl implements UserService {
 		 AddressEntity address = convertToAddressEntity(userRequest);
 		 address = addressRepository.save(address);
 		 
-		 customer.setAddress_customer_id(address);
-		 customer.setStatus(0);
+//		 customer.setAddress_customer_id(address);
+//		 customer.setStatus(0);
 		 RoleEntity role = roleRepository.findById(Long.parseLong("1")).get();
-		 customer.setRole_customer(role);
+//		 customer.setRole_customer(role);
 		 userRepository.save(customer);
 	}
 	
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
 	public boolean updateStatusByEmail(String email) {
         CustomerEntity customer = userRepository.findByEmail(email).get();
         if (customer != null) {
-            customer.setStatus(1);
+//            customer.setStatus(1);
             userRepository.save(customer);
             return true; 
         }
@@ -79,9 +79,9 @@ public class UserServiceImpl implements UserService {
 		Optional<CustomerEntity> userOt = userRepository.findByEmailAndPassword(email, password);
 		return userOt.map(user -> {
 	        CustomerDTO userDTO = new CustomerDTO();
-	        userDTO.setId(user.getId());
+//	        userDTO.setId(user.getId());
 	        userDTO.setEmail(user.getEmail());
-	        userDTO.setStatus(user.getStatus());
+//	        userDTO.setStatus(user.getStatus());
 	        return userDTO;
 	    }).orElse(null); // Trả về null nếu không tìm thấy User
 		
@@ -92,9 +92,9 @@ public class UserServiceImpl implements UserService {
 		Optional<CustomerEntity> userOt = userRepository.findByEmail(email);
 		return userOt.map(user -> {
 	        CustomerDTO userDTO = new CustomerDTO();
-	        userDTO.setId(user.getId());
+//	        userDTO.setId(user.getId());
 	        userDTO.setEmail(user.getEmail());
-	        userDTO.setStatus(user.getStatus());
+//	        userDTO.setStatus(user.getStatus());
 	        return userDTO;
 	    }).orElse(null); // Trả về null nếu không tìm thấy User
 	}

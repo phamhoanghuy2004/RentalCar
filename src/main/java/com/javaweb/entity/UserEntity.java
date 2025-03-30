@@ -1,105 +1,85 @@
 package com.javaweb.entity;
 
 import java.util.Date;
-
+import java.util.List;
 
 import jakarta.persistence.*;
 
 
-@MappedSuperclass
-// Không ánh xạ thành bảng, chỉ dùng làm lớp cha
-public abstract class UserEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
 
-    @Column(unique = true, nullable = false)
-    private String email;
-
-
-    @Column(nullable = false)
-    private String password;
-    
- 
-    @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date dateOfBirth;
-    
-   
-    @Column(nullable = false)
-    private String sex;
-    
-    
-    @Lob
-    @Column(columnDefinition = "LONGBLOB") 
-    private byte[] avatar; 
-   
-    
-    
-
-	private int status;
-
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
+@Entity
+@Table(name = "user")
+public class UserEntity extends PersonEntity {
 	
 
-	public int getId() {
-		return id;
+    @Column(name = "dateofstart" , nullable = false)
+	@Temporal(TemporalType.DATE)
+    private Date dateOfStart;
+	
+    @Column(name = "point", nullable = false)
+	private Long point;
+
+ 	@OneToMany(mappedBy = "staff_of_car", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+ 	private List<CarEntity> listCar;
+ 	
+ 	@OneToMany(mappedBy = "staff_of_bill", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+ 	private List<MaintenanceBillEntity> maintenanceBills;
+	 
+	@ManyToOne
+    @JoinColumn(name = "roleid", nullable = false)
+    private RoleEntity role;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "adressid")
+	private AddressEntity userAddress;
+
+	public Date getDateOfStart() {
+		return dateOfStart;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setDateOfStart(Date dateOfStart) {
+		this.dateOfStart = dateOfStart;
 	}
 
-	public Date getDateOfBirth() {
-		return dateOfBirth;
+	public Long getPoint() {
+		return point;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
+	public void setPoint(Long point) {
+		this.point = point;
 	}
 
-	public String getSex() {
-		return sex;
+	public List<CarEntity> getListCar() {
+		return listCar;
 	}
 
-	public void setSex(String sex) {
-		this.sex = sex;
+	public void setListCar(List<CarEntity> listCar) {
+		this.listCar = listCar;
 	}
 
-	public byte[] getAvatar() {
-		return avatar;
+	public List<MaintenanceBillEntity> getMaintenanceBills() {
+		return maintenanceBills;
 	}
 
-	public void setAvatar(byte[] avatar) {
-		this.avatar = avatar;
+	public void setMaintenanceBills(List<MaintenanceBillEntity> maintenanceBills) {
+		this.maintenanceBills = maintenanceBills;
 	}
 
-
-
-	public String getPassword() {
-		return password;
+	public RoleEntity getRole() {
+		return role;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setRole(RoleEntity role) {
+		this.role = role;
 	}
 
+	public AddressEntity getUserAddress() {
+		return userAddress;
+	}
 
-
-
+	public void setUserAddress(AddressEntity userAddress) {
+		this.userAddress = userAddress;
+	}
+	
+	
 }

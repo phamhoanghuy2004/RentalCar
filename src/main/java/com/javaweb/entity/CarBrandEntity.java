@@ -7,107 +7,104 @@ import jakarta.persistence.*;
 
 
 @Entity
+@Table(name = "carbrand")
 public class CarBrandEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 	
 
-    @Column(nullable = false)
+    @Column(name = "code" , nullable = false)
 	private String code;
 	
 
-    @Column(nullable = false)
+    @Column(name = "name" , nullable = false)
 	private String name;
 	
-	@Lob
-    @Column(columnDefinition = "LONGBLOB") 
-	private byte[] logo; 
+    
+    @Column(name = "logo" , nullable = false) 
+	private String logo; 
 	
 
-    @Column(nullable = false)
+    @Column(name = "description" , nullable = false)
 	private String description;
 	
 
-    @Column(nullable = false)
-	private int status;
+    @Column( name = "status" , nullable = false)
+	private String status;
 	
-	@ManyToMany
-    @JoinTable(
-        name = "Line_Brand",
-        joinColumns = @JoinColumn(name = "brand_id"),
-        inverseJoinColumns = @JoinColumn(name = "line_id")
-    )
-    private List<CarLineEntity> carLineEntities; 
 	
 	@OneToMany(mappedBy = "brand", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<CarEntity> carEntities;
+	private List<CarEntity> cars;
 
-	
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
 	public String getCode() {
 		return code;
 	}
+
 
 	public void setCode(String code) {
 		this.code = code;
 	}
 
+
 	public String getName() {
 		return name;
 	}
+
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public byte[] getLogo() {
+
+	public String getLogo() {
 		return logo;
 	}
 
-	public void setLogo(byte[] logo) {
+
+	public void setLogo(String logo) {
 		this.logo = logo;
 	}
+
 
 	public String getDescription() {
 		return description;
 	}
 
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
-	
-	
-	public int getId() {
-		return id;
-	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
-	public List<CarLineEntity> getCarLineEntities() {
-		return carLineEntities;
+
+	public List<CarEntity> getCars() {
+		return cars;
 	}
 
-	public void setCarLineEntities(List<CarLineEntity> carLineEntities) {
-		this.carLineEntities = carLineEntities;
-	}
 
-	public List<CarEntity> getCarEntities() {
-		return carEntities;
-	}
-
-	public void setCarEntities(List<CarEntity> carEntities) {
-		this.carEntities = carEntities;
+	public void setCars(List<CarEntity> cars) {
+		this.cars = cars;
 	}
 	
 	
