@@ -45,31 +45,30 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public void registerUser(UserRequest userRequest) {
-		CustomerEntity customer = convertToEntity(userRequest);
-		 if (userRepository.findByEmail(customer.getEmail()).isPresent()) {
-	            throw new IllegalStateException("Email đã tồn tại");
-	        }
-		 
-		 AddressEntity address = convertToAddressEntity(userRequest);
-		 address = addressRepository.save(address);
-		 
-		 customer.setAddress_customer_id(address);
-		 customer.setStatus(0);
-		 RoleEntity role = roleRepository.findById(Long.parseLong("1")).get();
-		 customer.setRole_customer(role);
-		 userRepository.save(customer);
+//		CustomerEntity customer = convertToEntity(userRequest);
+//		 if (userRepository.findByEmail(customer.getEmail()).isPresent()) {
+//	            throw new IllegalStateException("Email đã tồn tại");
+//	        }
+//		 
+//		 AddressEntity address = convertToAddressEntity(userRequest);
+//		 address = addressRepository.save(address);
+//		 
+//		 customer.setCustomerAddress(address);
+//		 customer.setStatus(0);
+//		 RoleEntity role = roleRepository.findById(Long.parseLong("1")).get();
+//		 userRepository.save(customer);
 	}
 	
 
     
 	@Override
 	public boolean updateStatusByEmail(String email) {
-        CustomerEntity customer = userRepository.findByEmail(email).get();
-        if (customer != null) {
-            customer.setStatus(1);
-            userRepository.save(customer);
-            return true; 
-        }
+//        CustomerEntity customer = userRepository.findByEmail(email).get();
+//        if (customer != null) {
+//            customer.setStatus(1);
+//            userRepository.save(customer);
+//            return true; 
+//        }
         return false; 
 	}
 
@@ -79,7 +78,7 @@ public class UserServiceImpl implements UserService {
 		Optional<CustomerEntity> userOt = userRepository.findByEmailAndPassword(email, password);
 		return userOt.map(user -> {
 	        CustomerDTO userDTO = new CustomerDTO();
-	        userDTO.setId(user.getId());
+	        //userDTO.setId(user.getId());
 	        userDTO.setEmail(user.getEmail());
 	        userDTO.setStatus(user.getStatus());
 	        return userDTO;
@@ -92,7 +91,7 @@ public class UserServiceImpl implements UserService {
 		Optional<CustomerEntity> userOt = userRepository.findByEmail(email);
 		return userOt.map(user -> {
 	        CustomerDTO userDTO = new CustomerDTO();
-	        userDTO.setId(user.getId());
+	        //userDTO.setId(user.getId());
 	        userDTO.setEmail(user.getEmail());
 	        userDTO.setStatus(user.getStatus());
 	        return userDTO;
@@ -105,7 +104,7 @@ public class UserServiceImpl implements UserService {
 		if (userOt.isPresent()) {
 			CustomerEntity  cusEntity =  userOt.get();
 			cusEntity.setPassword(pass);
-			userRepository.save(cusEntity);
+			//userRepository.save(cusEntity);
 			return true;
 		}
 		else {

@@ -20,8 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.javaweb.repository.AddressRepository;
 import com.javaweb.repository.CarBrandRepository;
+import com.javaweb.repository.CarLineRepository;
 import com.javaweb.repository.CarRepository;
-import com.javaweb.repository.StaffRepository;
 import com.javaweb.beans.CarDTO;
 import com.javaweb.beans.request.InsertCarRequest;
 import com.javaweb.converter.AddressConverter;
@@ -29,7 +29,7 @@ import com.javaweb.converter.CarConverter;
 import com.javaweb.entity.AddressEntity;
 import com.javaweb.entity.CarBrandEntity;
 import com.javaweb.entity.CarEntity;
-import com.javaweb.entity.StaffEntity;
+import com.javaweb.entity.CarLineEntity;
 import com.javaweb.service.CarService;
 
 @Service
@@ -46,6 +46,9 @@ public class CarServiceImpl implements CarService{
 	
 	@Autowired
     private ModelMapper modelMapper;
+	
+	@Autowired
+	private CarLineRepository carLineRepository;
 	
 	@Override
 	public Object lessThanSevenDay() {
@@ -76,27 +79,27 @@ public class CarServiceImpl implements CarService{
 	}
 	
 	
-	@Override
-	public List<CarDTO> getCarOfBrandActive(int idBrand) {
-		
-		List<CarEntity> listCarEntity = carRepository.findByBrand_IdAndStatus(idBrand, "Available");
-		List<CarDTO> listCarDTO = new ArrayList<>();
-		for (CarEntity item : listCarEntity) {
-			CarDTO carDTO = new CarDTO();
-			
-			carDTO.setId(item.getId());
-			carDTO.setName(item.getName());
-			carDTO.setDateOfStart(item.getDateOfStart());
-			carDTO.setDescription(item.getDescription());
-			carDTO.setPicture(item.getPicture());
-			carDTO.setPrice(item.getPrice());
-			listCarDTO.add(carDTO);
-			
-		}
-		
-		return listCarDTO;
-		
-	}
+//	@Override
+//	public List<CarDTO> getCarOfBrandActive(int idBrand) {
+//		
+//		List<CarEntity> listCarEntity = carRepository.findByBrand_IdAndStatus(idBrand, "Available");
+//		List<CarDTO> listCarDTO = new ArrayList<>();
+//		for (CarEntity item : listCarEntity) {
+//			CarDTO carDTO = new CarDTO();
+//			
+//			carDTO.setId(item.getId());
+//			carDTO.setName(item.getName());
+//			carDTO.setDateOfStart(item.getDateOfStart());
+//			carDTO.setDescription(item.getDescription());
+//			carDTO.setPicture(item.getPicture());
+//			carDTO.setPrice(item.getPrice());
+//			listCarDTO.add(carDTO);
+//			
+//		}
+//		
+//		return listCarDTO;
+//		
+//	}
 
 	@Override
 	public int updateLogo(int carId, MultipartFile file) throws IOException {
@@ -113,12 +116,21 @@ public class CarServiceImpl implements CarService{
 		AddressEntity newAddress = AddressConverter.convertToEntity(insertCarRequest);
 		newAddress = addressRepository.save(newAddress);
 		int brandId = insertCarRequest.getBrandId();
+		int lineId = insertCarRequest.getLineId();
 		CarBrandEntity brand = carBrandRepository.findById(brandId).get();
+		CarLineEntity line = carLineRepository.findById(lineId).get();
 		CarEntity newCar = CarConverter.convertToEntity(insertCarRequest);
-		newCar.setAddress_car_id(newAddress);
-		newCar.setBrand(brand);
-		carRepository.save(newCar);
+//		newCar.setAddress_car_id(newAddress);
+//		newCar.setBrand(brand);
+//		newCar.setC
+//		carRepository.save(newCar);
 		return ResponseEntity.ok("Them thanh cong");
+	}
+
+	@Override
+	public List<CarDTO> getCarOfBrandActive(int idBrand) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -1,62 +1,44 @@
 package com.javaweb.entity;
 
-import java.util.Date;
-
-
+import java.util.List;
 
 import jakarta.persistence.*;
 
 
 @Entity
+@Table(name = "voucher" )
 public class VoucherEntity {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 	
-
-    @Column(nullable = false)
-	private int value;
+    @Column(name = "value" , nullable = false)
+	private Long value;
 	
+    @Column(name = "description" , nullable = false)
 	private String description;
-	
-
-    @Column(nullable = false)
-	private int voucher_condition;
-	
-	
-    @Column(nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date dateFrom;
-	
-	
-    @Column(nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date dateTo;
-
     
-    
-	public int getVoucher_condition() {
-		return voucher_condition;
-	}
+    @Column(name = "status" , nullable = false)
+	private String status;
+	
+	@ManyToMany(mappedBy = "vouchers", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<CarEntity> cars;
+	
 
-	public void setVoucher_condition(int voucher_condition) {
-		this.voucher_condition = voucher_condition;
-	}
-
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public int getValue() {
+	public Long getValue() {
 		return value;
 	}
 
-	public void setValue(int value) {
+	public void setValue(Long value) {
 		this.value = value;
 	}
 
@@ -68,24 +50,14 @@ public class VoucherEntity {
 		this.description = description;
 	}
 
-	
-	public Date getDateFrom() {
-		return dateFrom;
+	public List<CarEntity> getCars() {
+		return cars;
 	}
 
-	public void setDateFrom(Date dateFrom) {
-		this.dateFrom = dateFrom;
+	public void setCars(List<CarEntity> cars) {
+		this.cars = cars;
 	}
-
-	public Date getDateTo() {
-		return dateTo;
-	}
-
-	public void setDateTo(Date dateTo) {
-		this.dateTo = dateTo;
-	}
+    
 	
-	
-	    
 
 }

@@ -4,10 +4,22 @@ import java.util.Date;
 
 import com.javaweb.entity.AddressEntity;
 import com.javaweb.entity.CarBrandEntity;
-import com.javaweb.entity.StaffEntity;
+
 
 
 public class InsertCarRequest {
+	
+	private int id;
+	private String name;
+	private String description;
+	private String status;
+	private byte[] picture; 
+	private String indentify;
+    private String city;
+	private Date dateOfStart;
+    private int brandId;
+    private int lineId;
+	
 	public int getId() {
 		return id;
 	}
@@ -44,18 +56,7 @@ public class InsertCarRequest {
 	public void setIndentify(String indentify) {
 		this.indentify = indentify;
 	}
-	public String getStreet() {
-		return street;
-	}
-	public void setStreet(String street) {
-		this.street = street;
-	}
-	public String getDistrict() {
-		return district;
-	}
-	public void setDistrict(String district) {
-		this.district = district;
-	}
+	
 	public String getCity() {
 		return city;
 	}
@@ -81,17 +82,13 @@ public class InsertCarRequest {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	private int id;
-	private String name;
-	private String description;
-	private String status;
-	private byte[] picture; 
-	private String indentify;
-    private String street;
-    private String district;
-    private String city;
-	private Date dateOfStart;
-    private int brandId;
+
+	public int getLineId() {
+		return lineId;
+	}
+	public void setLineId(int lineId) {
+		this.lineId = lineId;
+	}
 	private int price;
 	
 }

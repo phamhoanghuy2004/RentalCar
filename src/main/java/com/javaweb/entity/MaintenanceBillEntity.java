@@ -5,37 +5,33 @@ import java.util.Date;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "maintenancebill")
 public class MaintenanceBillEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 	
 
-    @Column(nullable = false)
+    @Column(name = "date", nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date date;
+    
+    @Column(name = "price", nullable = false)
+    private Long price;
 	
-	 @ManyToOne
-	 @JoinColumn(name = "staff_id") // Nhân viên thực hiện bảo trì
-	 private StaffEntity staff_bao_tri;
+	@ManyToOne
+	@JoinColumn(name = "staffid") // Nhân viên thực hiện bảo trì
+	private UserEntity staff_of_bill;
 	
-	 @ManyToOne
-	 @JoinColumn(name = "car_id") // Xe được bảo trì
-	 private CarEntity car_maintenance;
+	@ManyToOne
+	@JoinColumn(name = "carid") // Xe được bảo trì
+	private CarEntity car;
 	
-	 @OneToOne
-	 @JoinColumn(name = "payment_id") // Phương thức thanh toán
-	 private PaymentEntity payment_maintenance;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "paymentid") // Phương thức thanh toán
+	private PaymentEntity payment_maintenance;
 
 	
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public Date getDate() {
 		return date;
@@ -45,39 +41,49 @@ public class MaintenanceBillEntity {
 		this.date = date;
 	}
 
-	
-
-	public StaffEntity getStaff_bao_tri() {
-		return staff_bao_tri;
+	public Long getPrice() {
+		return price;
 	}
 
-	public void setStaff_bao_tri(StaffEntity staff_bao_tri) {
-		this.staff_bao_tri = staff_bao_tri;
+	public void setPrice(Long price) {
+		this.price = price;
 	}
 
-	
+
+	public UserEntity getStaff_of_bill() {
+		return staff_of_bill;
+	}
+
+	public void setStaff_of_bill(UserEntity staff_of_bill) {
+		this.staff_of_bill = staff_of_bill;
+	}
+
+	public CarEntity getCar() {
+		return car;
+	}
+
+	public void setCar(CarEntity car) {
+		this.car = car;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public PaymentEntity getPayment_maintenance() {
 		return payment_maintenance;
 	}
-
-	public void setCar_maintenance(CarEntity car_maintenance) {
-		this.car_maintenance = car_maintenance;
-	}
-
-	public CarEntity getCar_maintenance() {
-		return car_maintenance;
-	}
-
-	
 
 	public void setPayment_maintenance(PaymentEntity payment_maintenance) {
 		this.payment_maintenance = payment_maintenance;
 	}
 
 	
-	
-	 
+
 	
 	
 }
