@@ -18,6 +18,21 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.javaweb.repository.CarRepository;
 import com.javaweb.beans.CarDTO;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+
+import com.javaweb.repository.CarRepository;
+import com.javaweb.beans.CarDTO;
+
+import com.javaweb.beans.request.InsertCarRequest;
+import com.javaweb.converter.AddressConverter;
+import com.javaweb.converter.CarConverter;
+import com.javaweb.entity.AddressEntity;
+import com.javaweb.entity.CarBrandEntity;
+import com.javaweb.entity.CarEntity;
+import com.javaweb.entity.CarLineEntity;
 import com.javaweb.converter.CarDTOConverter;
 import com.javaweb.entity.CarEntity;
 import com.javaweb.entity.ImageEntity;
@@ -28,6 +43,8 @@ public class CarServiceImpl implements CarService{
 	
 	@Autowired
 	private CarRepository carRepository;
+	
+	
 	
 	@Autowired
     private ModelMapper modelMapper;
@@ -46,7 +63,11 @@ public class CarServiceImpl implements CarService{
 //		return carDTOs;S
 //	}
 	
-	public CarDTO convertToDTO(CarEntity carEntity) {
+
+	
+
+	
+	CarDTO convertToDTO(CarEntity carEntity) {
         return modelMapper.map(carEntity, CarDTO.class);
     }
 
@@ -101,5 +122,24 @@ public class CarServiceImpl implements CarService{
 //	    return carRepository.updatePicutre(carId, file.getBytes());
 //	    
 //	}
+
+    @Override
+	public ResponseEntity insertCar(InsertCarRequest insertCarRequest) {
+//		AddressEntity newAddress = AddressConverter.convertToEntity(insertCarRequest);
+//		newAddress = addressRepository.save(newAddress);
+//		int brandId = insertCarRequest.getBrandId();
+//		int lineId = insertCarRequest.getLineId();
+//		CarBrandEntity brand = carBrandRepository.findById(brandId).get();
+//		CarLineEntity line = carLineRepository.findById(lineId).get();
+//		CarEntity newCar = CarConverter.convertToEntity(insertCarRequest);
+////		newCar.setAddress_car_id(newAddress);
+////		newCar.setBrand(brand);
+////		newCar.setC
+////		carRepository.save(newCar);
+//		return ResponseEntity.ok("Them thanh cong");
+    	return null;
+	}
+
+
 
 }

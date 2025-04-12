@@ -28,4 +28,10 @@ public interface CarRepository  extends JpaRepository<CarEntity, Long>, CarRepos
 //	@Query("SELECT c FROM CarEntity c LEFT JOIN c.contractEntities co GROUP BY c.id ORDER BY COUNT(co) DESC")
 //	List<CarEntity> findTop10ByOrderByHopDongsSizeDesc(Pageable pageable);
 	
+	@Query("SELECT c FROM CarEntity c LEFT JOIN c.contractEntities co GROUP BY c.id ORDER BY COUNT(co) DESC")
+	List<CarEntity> findTop10ByOrderByHopDongsSizeDesc(Pageable pageable);
+	
+
+	
+
 }
