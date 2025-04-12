@@ -3,7 +3,7 @@ package com.javaweb.service;
 import java.util.Optional;
 
 import com.javaweb.beans.CustomerDTO;
-import com.javaweb.beans.UserRequest;
+import com.javaweb.beans.request.UserRequest;
 
 
 public interface UserService {

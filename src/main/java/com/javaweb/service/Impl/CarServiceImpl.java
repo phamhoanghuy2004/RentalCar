@@ -14,12 +14,22 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.javaweb.repository.AddressRepository;
+import com.javaweb.repository.CarBrandRepository;
 import com.javaweb.repository.CarRepository;
+import com.javaweb.repository.StaffRepository;
 import com.javaweb.beans.CarDTO;
+import com.javaweb.beans.request.InsertCarRequest;
+import com.javaweb.converter.AddressConverter;
+import com.javaweb.converter.CarConverter;
+import com.javaweb.entity.AddressEntity;
+import com.javaweb.entity.CarBrandEntity;
 import com.javaweb.entity.CarEntity;
+import com.javaweb.entity.StaffEntity;
 import com.javaweb.service.CarService;
 
 @Service
@@ -27,6 +37,12 @@ public class CarServiceImpl implements CarService{
 	
 	@Autowired
 	private CarRepository carRepository;
+	
+	@Autowired
+	private CarBrandRepository carBrandRepository;
+	
+	@Autowired
+	private AddressRepository addressRepository;
 	
 	@Autowired
     private ModelMapper modelMapper;
@@ -90,6 +106,19 @@ public class CarServiceImpl implements CarService{
 	    // Cập nhật mảng byte vào database (THAY VÌ LƯU TÊN FILE)
 	    return carRepository.updatePicutre(carId, file.getBytes());
 	    
+	}
+
+	@Override
+	public ResponseEntity insertCar(InsertCarRequest insertCarRequest) {
+		AddressEntity newAddress = AddressConverter.convertToEntity(insertCarRequest);
+		newAddress = addressRepository.save(newAddress);
+		int brandId = insertCarRequest.getBrandId();
+		CarBrandEntity brand = carBrandRepository.findById(brandId).get();
+		CarEntity newCar = CarConverter.convertToEntity(insertCarRequest);
+		newCar.setAddress_car_id(newAddress);
+		newCar.setBrand(brand);
+		carRepository.save(newCar);
+		return ResponseEntity.ok("Them thanh cong");
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.javaweb.beans;
+package com.javaweb.beans.request;
 
 import java.util.Date;
 

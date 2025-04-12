@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.javaweb.beans.CustomerDTO;
-import com.javaweb.beans.UserRequest;
+import com.javaweb.beans.request.UserRequest;
 import com.javaweb.entity.AddressEntity;
 import com.javaweb.entity.CustomerEntity;
 import com.javaweb.entity.RoleEntity;

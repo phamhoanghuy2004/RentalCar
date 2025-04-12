@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.javaweb.beans.ResultDTO;
-import com.javaweb.beans.UserRequest;
+import com.javaweb.beans.request.UserRequest;
 import com.javaweb.beans.CustomerDTO;
 import com.javaweb.customeExceptions.FiledRequiredException;
 import com.javaweb.entity.UserEntity;
