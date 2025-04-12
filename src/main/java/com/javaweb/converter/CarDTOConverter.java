@@ -43,7 +43,6 @@ public class CarDTOConverter {
 				 discount = vouchers.get(0).getValue().toString();
 			}
 			carDTO.setDiscount(discount);
-			
 			carDTO.setPictures(pitures);
 		}
 		return listCarDTO; 
