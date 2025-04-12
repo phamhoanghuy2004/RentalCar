@@ -18,8 +18,11 @@ public class VoucherEntity {
 	
     @Column(name = "description" , nullable = false)
 	private String description;
+    
+    @Column(name = "status" , nullable = false)
+	private String status;
 	
-	@OneToMany(mappedBy = "voucher", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "vouchers", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<CarEntity> cars;
 	
 

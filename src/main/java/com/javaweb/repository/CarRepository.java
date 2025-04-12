@@ -11,16 +11,21 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.javaweb.entity.CarEntity;
+import com.javaweb.repository.custom.CarRepositoryCustom;
 
-public interface CarRepository extends JpaRepository <CarEntity,Integer> {
-	List<CarEntity> findByBrand_IdAndStatus(int brandId, String status);
-	@Modifying
-	@Transactional
-	@Query("UPDATE CarEntity c SET c.picture = :picture  WHERE c.id = :id")
-	public int updatePicutre(@Param("id")  int id, @Param("picture") byte[] picture);
+public interface CarRepository  extends JpaRepository<CarEntity, Long>, CarRepositoryCustom  {
+	List<CarEntity> findByBrand_IdAndStatus(Long brandId, String status);
+	List<CarEntity> findTop7ByStatus(String status);
 	
-	List<CarEntity> findByDateOfStartBetween(Date startDate, Date endDate);
 	
-	@Query("SELECT c FROM CarEntity c LEFT JOIN c.contractEntities co GROUP BY c.id ORDER BY COUNT(co) DESC")
-	List<CarEntity> findTop10ByOrderByHopDongsSizeDesc(Pageable pageable);
+//	@Modifying	
+//	@Transactional
+//	@Query("UPDATE CarEntity c SET c.picture = :picture  WHERE c.id = :id")
+//	public int updatePicutre(@Param("id")  int id, @Param("picture") byte[] picture);
+	
+//	List<CarEntity> findByDateOfStartBetween(Date startDate, Date endDate);
+	
+//	@Query("SELECT c FROM CarEntity c LEFT JOIN c.contractEntities co GROUP BY c.id ORDER BY COUNT(co) DESC")
+//	List<CarEntity> findTop10ByOrderByHopDongsSizeDesc(Pageable pageable);
+	
 }

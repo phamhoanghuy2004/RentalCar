@@ -29,17 +29,17 @@ public class CarBrandApi {
 		return listCarBrandDTO;
 	}
 	
-	 @PostMapping("/updateLogoBrand/{id}")
-	    public ResponseEntity<?> updateCarLogo(@PathVariable("id") int brandId, @RequestParam("file") MultipartFile file) {
-	        try {
-	            if (carBrandService.updateLogo(brandId, file) == 1) {
-	            	return ResponseEntity.ok("Cập nhật logo thành công!");
-	            }
-	            else {
-	            	return ResponseEntity.badRequest().body("Không thể cập nhật");
-	            }
-	        } catch (Exception e) {
-	            return ResponseEntity.badRequest().body("Lỗi khi cập nhật logo: " + e.getMessage());
-	        }
-	    }
+//	 @PostMapping("/updateLogoBrand/{id}")
+//	    public ResponseEntity<?> updateCarLogo(@PathVariable("id") int brandId, @RequestParam("file") MultipartFile file) {
+//	        try {
+//	            if (carBrandService.updateLogo(brandId, file) == 1) {
+//	            	return ResponseEntity.ok("Cập nhật logo thành công!");
+//	            }
+//	            else {
+//	            	return ResponseEntity.badRequest().body("Không thể cập nhật");
+//	            }
+//	        } catch (Exception e) {
+//	            return ResponseEntity.badRequest().body("Lỗi khi cập nhật logo: " + e.getMessage());
+//	        }
+//	    }
 }

@@ -22,34 +22,45 @@ public class CarApi {
 	@Autowired
 	private CarService carService;
 	
-	@GetMapping(value = "/lessthan7days")
-	public Object lessThanSevenDay(){
-		return carService.lessThanSevenDay();
-	}
-	
-	@GetMapping(value = "/topTen")
-	public Object topTen(){
-		return carService.topTen();
-	}
+//	@GetMapping(value = "/lessthan7days")
+//	public Object lessThanSevenDay(){
+//		return carService.lessThanSevenDay();
+//	}
+//	
+//	@GetMapping(value = "/topTen")
+//	public Object topTen(){
+//		return carService.topTen();
+//	}
 	
 	@GetMapping
-	public Object getCarByBrandActive(@RequestParam(value = "idBrand" , required = false) int idBrand) {
-		
+	public Object getCarByBrandActive(@RequestParam(value = "idBrand" , required = false) Long idBrand) {
 		List<CarDTO> listCar = carService.getCarOfBrandActive(idBrand);
 		return listCar;
 	}
 	
-    @PostMapping("/updateLogoCar/{id}")
-    public ResponseEntity<?> updateCarLogo(@PathVariable("id") int carId, @RequestParam("file") MultipartFile file) {
-        try {
-            if (carService.updateLogo(carId, file) == 1) {
-            	return ResponseEntity.ok("Cập nhật logo thành công!");
-            }
-            else {
-            	return ResponseEntity.badRequest().body("Không thể cập nhật");
-            }
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Lỗi khi cập nhật logo: " + e.getMessage());
-        }
-    }
+	@GetMapping(value = "/newCar")
+	public Object getNewCar() {
+		List<CarDTO> listCar = carService.getNewCar();
+		return listCar;
+	}
+	
+	@GetMapping(value = "/saleCar")
+	public Object getSaleCar() {
+		List<CarDTO> listCar = carService.getSaleCar();
+		return listCar;
+	}
+	
+//    @PostMapping("/updateLogoCar/{id}")
+//    public ResponseEntity<?> updateCarLogo(@PathVariable("id") int carId, @RequestParam("file") MultipartFile file) {
+//        try {
+//            if (carService.updateLogo(carId, file) == 1) {
+//            	return ResponseEntity.ok("Cập nhật logo thành công!");
+//            }
+//            else {
+//            	return ResponseEntity.badRequest().body("Không thể cập nhật");
+//            }
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body("Lỗi khi cập nhật logo: " + e.getMessage());
+//        }
+//    }
 }

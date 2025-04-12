@@ -12,11 +12,11 @@ import com.javaweb.entity.CarBrandEntity;
 
 public interface CarBrandRepository extends JpaRepository<CarBrandEntity,Integer> {
 	public List<CarBrandEntity>  findAll();
-	public List<CarBrandEntity>  findByStatus(int status);	
+	public List<CarBrandEntity>  findByStatus(String status);	
 	
-	@Modifying
-	@Transactional
-	@Query("UPDATE CarBrandEntity c SET c.logo = :logo  WHERE c.id = :id")
-	public int updatePicutre(@Param("id")  int id, @Param("logo") byte[] picture);
+//	@Modifying
+//	@Transactional
+//	@Query("UPDATE CarBrandEntity c SET c.logo = :logo  WHERE c.id = :id")
+//	public int updatePicutre(@Param("id")  int id, @Param("logo") byte[] picture);
 	
 }
