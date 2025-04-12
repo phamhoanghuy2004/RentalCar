@@ -44,28 +44,12 @@ public class CarServiceImpl implements CarService{
 	@Autowired
 	private CarRepository carRepository;
 	
-	
-	
 	@Autowired
     private ModelMapper modelMapper;
 	
 	@Autowired
 	private CarDTOConverter carDTOConverter;
 	
-//	@Override
-//	public Object lessThanSevenDay() {
-//		LocalDate localDate = LocalDate.now().minusDays(7);
-//		Date startDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-//		localDate = LocalDate.now();
-//		Date endDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-//		List<CarEntity> cars = carRepository.findByDateOfStartBetween(startDate,endDate);
-//		List<CarDTO> carDTOs = convertToDTOList(cars);	
-//		return carDTOs;S
-//	}
-	
-
-	
-
 	
 	CarDTO convertToDTO(CarEntity carEntity) {
         return modelMapper.map(carEntity, CarDTO.class);
@@ -75,15 +59,6 @@ public class CarServiceImpl implements CarService{
         return carEntities.stream().map(car -> modelMapper.map(car, CarDTO.class))
                           .collect(Collectors.toList());
     }
-
-//	@Override
-//	public Object topTen() {
-//		PageRequest topTen = PageRequest.of(0, 10);
-//		List<CarEntity> cars = carRepository.findTop10ByOrderByHopDongsSizeDesc(topTen);
-//		List<CarDTO> carDTOs = convertToDTOList(cars);	
-//		return carDTOs;
-//	}
-	
 	
 	@Override
 	public List<CarDTO> getCarOfBrandActive(Long idBrand) {
@@ -113,15 +88,6 @@ public class CarServiceImpl implements CarService{
 
 	
 
-//	@Override
-//	public int updateLogo(int carId, MultipartFile file) throws IOException {
-//	    if (file.isEmpty()) {
-//	        return 0;
-//	    }
-//	    // Cập nhật mảng byte vào database (THAY VÌ LƯU TÊN FILE)
-//	    return carRepository.updatePicutre(carId, file.getBytes());
-//	    
-//	}
 
     @Override
 	public ResponseEntity insertCar(InsertCarRequest insertCarRequest) {
