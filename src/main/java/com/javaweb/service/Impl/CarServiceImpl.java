@@ -90,6 +90,14 @@ public class CarServiceImpl implements CarService{
 		return listCarDTO;
 	}
 
+	@Override
+	public List<CarDTO> getAllCar() {
+		List<CarEntity> listCarEntity = carRepository.findByStatus("Active");
+		List<CarDTO> listCarDTO = new ArrayList<>();
+		listCarDTO = carDTOConverter.convertCarDTO(listCarEntity);
+		return listCarDTO;
+	}
+
 	
 
 //	@Override

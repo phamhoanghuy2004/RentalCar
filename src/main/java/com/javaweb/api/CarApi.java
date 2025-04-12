@@ -32,21 +32,27 @@ public class CarApi {
 //		return carService.topTen();
 //	}
 	
-	@GetMapping
-	public Object getCarByBrandActive(@RequestParam(value = "idBrand" , required = false) Long idBrand) {
+	@GetMapping("/brand/{idBrand}")
+	public Object getCarByBrandActive(@PathVariable("idBrand") Long idBrand) {
 		List<CarDTO> listCar = carService.getCarOfBrandActive(idBrand);
 		return listCar;
 	}
 	
-	@GetMapping(value = "/newCar")
+	@GetMapping(value = "/new")
 	public Object getNewCar() {
 		List<CarDTO> listCar = carService.getNewCar();
 		return listCar;
 	}
 	
-	@GetMapping(value = "/saleCar")
+	@GetMapping(value = "/sale")
 	public Object getSaleCar() {
 		List<CarDTO> listCar = carService.getSaleCar();
+		return listCar;
+	}
+	
+	@GetMapping
+	public Object getAllCar() {
+		List<CarDTO> listCar = carService.getAllCar();
 		return listCar;
 	}
 	

@@ -12,6 +12,7 @@ public interface CarService {
 	public List<CarDTO> getCarOfBrandActive(Long idBrand);
 	public List<CarDTO> getNewCar();
 	public List<CarDTO> getSaleCar();
+	public List<CarDTO> getAllCar();
 //	public int updateLogo(int id, MultipartFile file)  throws IOException;
 //	Object lessThanSevenDay();
 //	Object topTen();
