@@ -1,19 +1,30 @@
 package com.javaweb.beans;
 
 import java.util.Date;
+import java.util.List;
 
 public class CarDTO {
-	private int id;
+	private Long id;
 	private Date dateOfStart;
 	private String description;
-	private String identify;
+	private String indentify;
 	private String name;
-	private byte[] picture;
-	private int price;
-	public int getId() {
+	private List<String> pictures;
+	private Long price;
+	private String location;
+	private String discount;
+	
+	
+	public String getDiscount() {
+		return discount;
+	}
+	public void setDiscount(String discount) {
+		this.discount = discount;
+	}
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public Date getDateOfStart() {
@@ -28,31 +39,36 @@ public class CarDTO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getIdentify() {
-		return identify;
-	}
-	public void setIdentify(String identify) {
-		this.identify = identify;
-	}
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public byte[] getPicture() {
-		return picture;
+	public List<String> getPictures() {
+		return pictures;
 	}
-	public void setPicture(byte[] picture) {
-		this.picture = picture;
+	public void setPictures(List<String> pictures) {
+		this.pictures = pictures;
 	}
-	public int getPrice() {
+	public Long getPrice() {
 		return price;
 	}
-	public void setPrice(int price) {
+	public void setPrice(Long price) {
 		this.price = price;
 	}
-	
-	
+	public String getIndentify() {
+		return indentify;
+	}
+	public void setIndentify(String indentify) {
+		this.indentify = indentify;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
+		
 	
 }

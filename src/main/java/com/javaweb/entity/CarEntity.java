@@ -24,12 +24,7 @@ public class CarEntity {
 
     @Column(name = "status" , nullable = false)
 	private String status;
-	
-
-    @Column(name = "picture" , nullable = false) 
-	private String picture; 
-	
-    
+	  
     @Column(name = "indentify", nullable = false)
 	private String indentify;   // bien so
     
@@ -39,6 +34,10 @@ public class CarEntity {
        
     @Column(name = "price", nullable = false)
    	private Long price;
+    
+    @OneToMany(mappedBy = "carOfImg", fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+    private List<ImageEntity> images;
+    
     
 	
     @OneToOne(cascade = CascadeType.ALL)
@@ -71,9 +70,12 @@ public class CarEntity {
 	)
 	private List<ContractEntity> contracts;
 	
-	@ManyToOne
-	@JoinColumn(name = "voucherid")
-	private VoucherEntity  voucher;
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "car_voucher",
+			 joinColumns = @JoinColumn(name = "carid"),
+			 inverseJoinColumns = @JoinColumn(name = "voucherid")	
+	)
+	private List<VoucherEntity>  vouchers;
 
 	public Long getId() {
 		return id;
@@ -105,14 +107,6 @@ public class CarEntity {
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public String getPicture() {
-		return picture;
-	}
-
-	public void setPicture(String picture) {
-		this.picture = picture;
 	}
 
 	public String getIndentify() {
@@ -187,14 +181,21 @@ public class CarEntity {
 		this.contracts = contracts;
 	}
 
-	public VoucherEntity getVoucher() {
-		return voucher;
+	public List<VoucherEntity> getVouchers() {
+		return vouchers;
 	}
 
-	public void setVoucher(VoucherEntity voucher) {
-		this.voucher = voucher;
+	public void setVouchers(List<VoucherEntity> vouchers) {
+		this.vouchers = vouchers;
 	}
 
-	
-	
+	public List<ImageEntity> getImages() {
+		return images;
+	}
+
+	public void setImages(List<ImageEntity> images) {
+		this.images = images;
+	}
+
+		
 }
