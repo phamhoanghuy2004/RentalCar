@@ -1,6 +1,7 @@
 package com.javaweb.api;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -25,7 +27,7 @@ public class CarApi {
 	
 	
 	@GetMapping("/brand/{idBrand}")
-	public Object getCarByBrandId(@PathVariable(value = "idBrand") Long idBrand) {
+	public Object getCarByBrandActive(@PathVariable("idBrand") Long idBrand) {
 		List<CarDTO> listCar = carService.getCarOfBrandActive(idBrand);
 		return listCar;
 	}
@@ -42,6 +44,17 @@ public class CarApi {
 		return listCar;
 	}
 	
+	@GetMapping
+	public Object getAllCar() {
+		List<CarDTO> listCar = carService.getAllCar();
+		return listCar;
+	}
+	
+	@GetMapping(value = "/findCar")
+	public Object searchCar (@RequestParam Map<String,Object> params )  {
+		List<CarDTO> listCar = carService.findCar(params);
+		return listCar;
+	}
 
     @PostMapping("insertCar")
     public ResponseEntity<?> InsertCar(@RequestBody InsertCarRequest carRequest){
