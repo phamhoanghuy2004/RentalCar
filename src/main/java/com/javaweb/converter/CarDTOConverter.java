@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.javaweb.beans.CarDTO;
 import com.javaweb.entity.AddressEntity;
+import com.javaweb.entity.CarBrandEntity;
 import com.javaweb.entity.CarEntity;
+import com.javaweb.entity.CarLineEntity;
 import com.javaweb.entity.ImageEntity;
 import com.javaweb.entity.VoucherEntity;
 
@@ -44,7 +46,13 @@ public class CarDTOConverter {
 			}
 			carDTO.setDiscount(discount);
 			carDTO.setPictures(pitures);
-		}
+			
+			CarLineEntity carLineEntity = car.getLine();
+			carDTO.setLine(carLineEntity.getName());
+			
+			CarBrandEntity carBrandEntity = car.getBrand();
+			carDTO.setBrand(carBrandEntity.getName());
+		} 
 		return listCarDTO; 
 	}
 }

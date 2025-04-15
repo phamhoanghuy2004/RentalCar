@@ -3,6 +3,7 @@ package com.javaweb.service.Impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,10 @@ import com.javaweb.repository.CarRepository;
 import com.javaweb.beans.CarDTO;
 import org.springframework.http.ResponseEntity;
 import com.javaweb.beans.request.InsertCarRequest;
+import com.javaweb.builder.CarSearchBuilder;
 import com.javaweb.entity.CarEntity;
 import com.javaweb.converter.CarDTOConverter;
+import com.javaweb.converter.CarSearchBuilderConverter;
 import com.javaweb.service.CarService;
 
 @Service
@@ -26,6 +29,9 @@ public class CarServiceImpl implements CarService{
 	
 	@Autowired
 	private CarDTOConverter carDTOConverter;
+	
+	@Autowired
+	private CarSearchBuilderConverter carSearchBuilderConverter;
 	
 	
 	CarDTO convertToDTO(CarEntity carEntity) {
@@ -89,6 +95,14 @@ public class CarServiceImpl implements CarService{
 ////		carRepository.save(newCar);
 //		return ResponseEntity.ok("Them thanh cong");
     	return null;
+	}
+
+	@Override
+	public List<CarDTO> findCar(Map<String, Object> params) {
+		CarSearchBuilder carSearchBuilder = carSearchBuilderConverter.toCarSearchBuilder(params);
+		List<CarEntity> listCarEntity = carRepository.findCar(carSearchBuilder);
+		List<CarDTO> listCarDTO = carDTOConverter.convertCarDTO(listCarEntity);
+		return listCarDTO; 
 	}
 
 
