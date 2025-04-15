@@ -38,7 +38,6 @@ public class CarEntity {
     @OneToMany(mappedBy = "carOfImg", fetch = FetchType.LAZY , cascade = CascadeType.ALL)
     private List<ImageEntity> images;
     
-    
 	
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn (name = "addressid", referencedColumnName = "id")

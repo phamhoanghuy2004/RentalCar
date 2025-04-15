@@ -20,18 +20,17 @@ public class AddressEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
-	@Column(name = "province", nullable = false)
-	private String province;  //Tỉnh/Thành phố
+	@Column(name = "province", nullable = true)
+	private String province;
 	
-	@Column(name = "district", nullable = false)
-	private String district;  //Quận/Huyện
+	@Column(name = "district", nullable = true)
+	private String district;
 	
 	
-	@Column(name = "ward", nullable = false)
-	private String ward;   //Phường/Xã
-	
-	@Column(name = "street", nullable = false)
-	private String street;  // địa chỉ chi tiết 
+	@Column(name = "ward", nullable = true)
+	private String ward;
+	@Column(name = "street", nullable = true)
+	private String street;
 	
 	@OneToOne(mappedBy = "userAddress", fetch = FetchType.EAGER)
     private UserEntity user;
