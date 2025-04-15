@@ -56,7 +56,7 @@ public class CarApi {
 		return listCar;
 	}
 
-    @PostMapping("insertCar")
+    @PostMapping("/insertCar")
     public ResponseEntity<?> InsertCar(@RequestBody InsertCarRequest carRequest){
     	ResponseEntity response = carService.insertCar(carRequest);
     	return response;
