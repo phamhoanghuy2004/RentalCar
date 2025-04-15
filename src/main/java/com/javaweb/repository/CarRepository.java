@@ -8,5 +8,5 @@ import com.javaweb.repository.custom.CarRepositoryCustom;
 public interface CarRepository  extends JpaRepository<CarEntity, Long>, CarRepositoryCustom  {
 	List<CarEntity> findByBrand_IdAndStatus(Long brandId, String status);
 	List<CarEntity> findTop7ByStatus(String status);
-
+	List<CarEntity> findByStatus(String status);
 }
