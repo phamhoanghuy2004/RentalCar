@@ -1,15 +1,17 @@
 package com.javaweb.service.Impl;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Random;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-
 import com.javaweb.beans.CustomerDTO;
-import com.javaweb.beans.UserRequest;
+import com.javaweb.beans.ResultDTO;
+import com.javaweb.beans.request.UserRequest;
 import com.javaweb.entity.AddressEntity;
 import com.javaweb.entity.CustomerEntity;
 import com.javaweb.entity.RoleEntity;
@@ -19,6 +21,7 @@ import com.javaweb.repository.RoleRepository;
 import com.javaweb.repository.UserRepository;
 import com.javaweb.service.UserService;
 import com.javaweb.util.EmailService;
+import com.javaweb.util.OTPGenerate;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -35,6 +38,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private ModelMapper modelMapper;
 	
+	
 	public CustomerEntity convertToEntity(UserRequest userRequest) {
         return modelMapper.map(userRequest, CustomerEntity.class);
     }
@@ -43,30 +47,12 @@ public class UserServiceImpl implements UserService {
         return modelMapper.map(userRequest, AddressEntity.class);
     }
 	
-	@Override
-	public void registerUser(UserRequest userRequest) {
-		CustomerEntity customer = convertToEntity(userRequest);
-		 if (userRepository.findByEmail(customer.getEmail()).isPresent()) {
-	            throw new IllegalStateException("Email đã tồn tại");
-	        }
-		 
-		 AddressEntity address = convertToAddressEntity(userRequest);
-		 address = addressRepository.save(address);
-		 
-//		 customer.setAddress_customer_id(address);
-//		 customer.setStatus(0);
-		 RoleEntity role = roleRepository.findById(Long.parseLong("1")).get();
-//		 customer.setRole_customer(role);
-		 userRepository.save(customer);
-	}
-	
 
-    
 	@Override
 	public boolean updateStatusByEmail(String email) {
         CustomerEntity customer = userRepository.findByEmail(email).get();
         if (customer != null) {
-//            customer.setStatus(1);
+            customer.setStatus(1);
             userRepository.save(customer);
             return true; 
         }
@@ -112,6 +98,4 @@ public class UserServiceImpl implements UserService {
 			return false;
 		}
 	}
-
-
 }

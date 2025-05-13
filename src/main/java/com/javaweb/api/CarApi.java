@@ -5,9 +5,11 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,7 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.javaweb.beans.CarDTO;
+import com.javaweb.beans.CarResponse;
 import com.javaweb.beans.request.InsertCarRequest;
+import com.javaweb.entity.CarEntity;
 import com.javaweb.service.CarService;
 
 
@@ -50,6 +54,12 @@ public class CarApi {
 		return listCar;
 	}
 	
+	@GetMapping(value = "/GetAll")
+	public Object getAllCarNoStatus() {
+		List<CarResponse> listCar = carService.getAllCarNoStatus();
+		return listCar;
+	}
+	
 	@GetMapping(value = "/findCar")
 	public Object searchCar (@RequestParam Map<String,Object> params )  {
 		List<CarDTO> listCar = carService.findCar(params);
@@ -59,6 +69,18 @@ public class CarApi {
     @PostMapping("insertCar")
     public ResponseEntity<?> InsertCar(@RequestBody InsertCarRequest carRequest){
     	ResponseEntity response = carService.insertCar(carRequest);
+    	return response;
+    }
+    
+    @PutMapping("updateCar")
+    public ResponseEntity<?> UpdateCar(@RequestBody InsertCarRequest carRequest){
+    	ResponseEntity response = carService.updateCar(carRequest);
+    	return response;
+    }
+    
+    @DeleteMapping("deleteCar/{id}")
+    public ResponseEntity<?> UpdateCar(@PathVariable("id") Long id){
+    	ResponseEntity response = carService.deleteCar(id);
     	return response;
     }
 

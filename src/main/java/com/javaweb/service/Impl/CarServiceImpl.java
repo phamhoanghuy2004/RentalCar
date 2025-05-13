@@ -2,6 +2,7 @@ package com.javaweb.service.Impl;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -15,11 +16,19 @@ import com.javaweb.repository.CarLineRepository;
 import com.javaweb.repository.CarRepository;
 import com.javaweb.repository.ImageRepository;
 import com.javaweb.beans.CarDTO;
+import com.javaweb.beans.CarResponse;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import com.javaweb.beans.request.InsertCarRequest;
 import com.javaweb.builder.CarSearchBuilder;
+import com.javaweb.entity.AddressEntity;
+import com.javaweb.entity.CarBrandEntity;
 import com.javaweb.entity.CarEntity;
+import com.javaweb.entity.CarLineEntity;
+import com.javaweb.entity.ImageEntity;
+import com.javaweb.converter.AddressConverter;
+import com.javaweb.converter.CarConverter;
 import com.javaweb.converter.CarDTOConverter;
 import com.javaweb.converter.CarSearchBuilderConverter;
 import com.javaweb.service.CarService;
@@ -97,6 +106,20 @@ public class CarServiceImpl implements CarService{
 		listCarDTO = carDTOConverter.convertCarDTO(listCarEntity);
 		return listCarDTO;
 	}
+	
+	@Override
+	@Transactional
+	public List<CarResponse> getAllCarNoStatus() {
+		List<CarEntity> listCarEntity = carRepository.findAll();
+	    List<CarResponse> carResponses = new ArrayList<>();
+
+	    for (CarEntity car : listCarEntity) {
+	        CarResponse response = carDTOConverter.mapCarEntityToResponse(car);
+	        carResponses.add(response);
+	    }
+
+	    return carResponses;
+	}
 
 	
   @Override
@@ -144,6 +167,76 @@ public class CarServiceImpl implements CarService{
 		List<CarEntity> listCarEntity = carRepository.findCar(carSearchBuilder);
 		List<CarDTO> listCarDTO = carDTOConverter.convertCarDTO(listCarEntity);
 		return listCarDTO; 
+	}
+
+	@Override
+	@Transactional
+	public ResponseEntity updateCar(InsertCarRequest request) {
+		try {
+			CarEntity car = carRepository.findById(request.getId())
+		            .orElseThrow(() -> new EntityNotFoundException("Không tìm thấy xe với ID: " + request.getId()));
+
+		    car.setName(request.getName());
+		    car.setDescription(request.getDescription());
+		    car.setStatus(request.getStatus());
+		    car.setIndentify(request.getIndentify());
+		    car.setPrice(request.getPrice());
+
+		    CarBrandEntity brand = carBrandRepository.findById(request.getBrandId())
+		            .orElseThrow(() -> new EntityNotFoundException("Không tìm thấy hãng xe"));
+		    car.setBrand(brand);
+
+		    CarLineEntity line = carLineRepository.findById(request.getLineId())
+		            .orElseThrow(() -> new EntityNotFoundException("Không tìm thấy dòng xe"));
+		    car.setLine(line);
+
+		    AddressEntity address = car.getCarAddress();
+		    if (address == null) {
+		        address = new AddressEntity();
+		        address.setCar(car);
+		    }
+		    address.setProvince(request.getProvince());
+		    address.setDistrict(request.getDistrict());
+		    address.setWard(request.getWard());
+		    address.setStreet(request.getStreet());
+		    car.setCarAddress(address);
+
+		    carRepository.save(car);
+
+		    if (request.getImageUrls() != null) {
+		        imageRepository.deleteByCarOfImg(car);
+
+		        List<ImageEntity> images = request.getImageUrls().stream()
+		                .map(url -> {
+		                    ImageEntity image = new ImageEntity();
+		                    image.setData(url);
+		                    image.setCarOfImg(car);
+		                    return image;
+		                })
+		                .collect(Collectors.toList());
+
+		        imageRepository.saveAll(images);
+		    }
+	        return ResponseEntity.ok("Cập nhật thành công");
+		} catch (Exception e) {
+			e.printStackTrace();
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+		               .body("Lỗi khi cập nhật xe: " + e.getMessage());
+		}	
+	}
+
+	@Override
+	public ResponseEntity deleteCar(Long id) {
+		try {
+			CarEntity car = carRepository.findById(id).get();
+			car.setStatus("Deleted");
+			carRepository.save(car);
+			return ResponseEntity.ok("Xóa thành công");
+		} catch(Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+		               .body("Lỗi khi xóa xe: " + e.getMessage());
+		}
 	}
 
 }
