@@ -42,7 +42,7 @@ public class UserAPI {
     	return customerService.registerUser(request);   	
     }
 
-    @PostMapping("/verify-otp")
+    @PostMapping("/verifyotp")
     public ResultDTO verifyOtp(@RequestBody UserRequest request) {
     	String savedOtp = redisTemplate.opsForValue().get(request.getEmail());
     	ResultDTO result = new ResultDTO();
