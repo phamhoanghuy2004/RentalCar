@@ -1,11 +1,13 @@
 package com.javaweb.service.Impl;
 
-import java.util.Date;
 
+import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.javaweb.beans.ContractDTO;
+import com.javaweb.beans.ContractInfor;
 import com.javaweb.beans.ResultDTO;
 import com.javaweb.converter.ContractDTOConverter;
 import com.javaweb.entity.ContractEntity;
@@ -13,6 +15,9 @@ import com.javaweb.entity.PaymentEntity;
 import com.javaweb.repository.ContractRepository;
 import com.javaweb.repository.PaymentRepository;
 import com.javaweb.service.ContractService;
+import com.javaweb.entity.CarEntity;
+
+
 
 @Service
 public class ContractServiceImpl implements ContractService {
@@ -56,5 +61,29 @@ public class ContractServiceImpl implements ContractService {
 		return contractRepository.findByIdAndStatus(id,"WAIT");
 	}
 	
+	@Override
+	public List<ContractInfor> getAllContracts() {
+		List<ContractEntity> contractEntities = contractRepository.findAll();
+		List<ContractInfor> contractDTOs = new ArrayList<ContractInfor>();
+		for(ContractEntity contractEntity : contractEntities) {
+			String customerName = contractEntity.getCustomer() != null ? contractEntity.getCustomer().getName() : null;
+			
+			for (CarEntity car : contractEntity.getCars()) {
+				ContractInfor dto = new ContractInfor();
+                
+                dto.setId(contractEntity.getId());
+                dto.setStatus(contractEntity.getStatus());
+                dto.setDateFrom(contractEntity.getDateFrom());
+                dto.setDateTo(contractEntity.getDateTo());
+                dto.setPrice(contractEntity.getPrice());
+                dto.setNameCustomer(customerName);
+                dto.setNameCar(car.getName());
+                dto.setIndentifyCar(car.getIndentify());
+
+                contractDTOs.add(dto);
+            }
+		}
+		return contractDTOs;
+	}
 
 }

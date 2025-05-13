@@ -7,6 +7,8 @@ public class CarBrandDTO {
     private String name;
     private String description;
     private String logo;
+    private String status;
+    private String code;
     
 	public Long getId() {
 		return id;
@@ -32,8 +34,16 @@ public class CarBrandDTO {
 	public void setLogo(String logo) {
 		this.logo = logo;
 	}
-
-
-   
-    
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
 }

@@ -24,6 +24,12 @@ public class OTPGenerate {
 		return otp;
 	}
 	
+	public static String generateOTP2 () {
+		Random random = new Random();	
+		String otp = String.valueOf(random.nextInt(900000) + 100000);
+		return otp;
+	}
+	
 	 public boolean verifyOTP(String email, String inputOtp, String action) {
 	        String key = "OTP_" + email;
 	        String savedOtp = redisTemplate.opsForValue().get(key);
