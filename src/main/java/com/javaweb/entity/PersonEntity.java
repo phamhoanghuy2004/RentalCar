@@ -8,7 +8,6 @@ import jakarta.persistence.*;
 
 
 @MappedSuperclass
-// Không ánh xạ thành bảng, chỉ dùng làm lớp cha
 public abstract class PersonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,8 +37,7 @@ public abstract class PersonEntity {
     private String avatar;  // Firebase Storage
     
     @Column(name = "status", nullable = false)
-    private Integer status;
-
+    private Integer status;  
 
 	public Long getId() {
 		return id;
@@ -49,7 +47,8 @@ public abstract class PersonEntity {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+	
+	
 
 	public String getEmail() {
 		return email;
@@ -116,6 +115,4 @@ public abstract class PersonEntity {
 	public void setName(String name) {
 		this.name = name;
 	}
-		
-    
 }

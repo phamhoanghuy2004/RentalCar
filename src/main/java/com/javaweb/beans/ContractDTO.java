@@ -1,6 +1,7 @@
 package com.javaweb.beans;
 
 import java.util.Date;
+<<<<<<< HEAD
 import java.util.List;
 
 public class ContractDTO {
@@ -13,12 +14,11 @@ public class ContractDTO {
 	private List<CarDTO> cars;
 	private PaymentDTO paymentDTO;
 	
-	
-	public PaymentDTO getPaymentDTO() {
-		return paymentDTO;
+	public Long getId() {
+		return id;
 	}
-	public void setPaymentDTO(PaymentDTO paymentDTO) {
-		this.paymentDTO = paymentDTO;
+	public void setId(Long id) {
+		this.id = id;
 	}
 	public String getStatus() {
 		return status;
@@ -56,11 +56,11 @@ public class ContractDTO {
 	public void setCars(List<CarDTO> cars) {
 		this.cars = cars;
 	}
-	public Long getId() {
-		return id;
+	public PaymentDTO getPaymentDTO() {
+		return paymentDTO;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setPaymentDTO(PaymentDTO paymentDTO) {
+		this.paymentDTO = paymentDTO;
 	}
 	
 	

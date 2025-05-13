@@ -86,6 +86,30 @@
 	    <groupId>org.springframework.boot</groupId>
 	    <artifactId>spring-boot-starter-thymeleaf</artifactId>
 	</dependency>
+	
+	<dependency>
+	    <groupId>com.cloudinary</groupId>
+	    <artifactId>cloudinary-http44</artifactId>
+	    <version>1.39.0</version>
+	</dependency>
+	
+	<!-- Redis -->
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-data-redis</artifactId>
+	</dependency>
+	
+	<!-- Lettuce client (default) -->
+	<dependency>
+	    <groupId>io.lettuce</groupId>
+	    <artifactId>lettuce-core</artifactId>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.springframework.security</groupId>
+	    <artifactId>spring-security-core</artifactId>
+	    <version>6.1.4</version> <!-- hoặc phiên bản phù hợp -->
+	</dependency>
 
 </dependencies>
 </project>

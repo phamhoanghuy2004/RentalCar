@@ -8,11 +8,13 @@ public class UserRequest {
     private String password;
     private Date dateOfBirth;
     private String sex;
-    private byte[] avatar; 
+    private String avatar; 
 	private int status;
     private String street;
     private String district;
-    private String city;
+    private String ward;
+    private String province;
+    private String otp;
     
     
 	public String getEmail() {
@@ -39,10 +41,10 @@ public class UserRequest {
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
-	public byte[] getAvatar() {
+	public String getAvatar() {
 		return avatar;
 	}
-	public void setAvatar(byte[] avatar) {
+	public void setAvatar(String avatar) {
 		this.avatar = avatar;
 	}
 	public int getStatus() {
@@ -60,15 +62,26 @@ public class UserRequest {
 	public String getDistrict() {
 		return district;
 	}
+	public String getWard() {
+		return ward;
+	}
+	public void setWard(String ward) {
+		this.ward = ward;
+	}
 	public void setDistrict(String district) {
 		this.district = district;
 	}
-	public String getCity() {
-		return city;
+	public String getProvince() {
+		return province;
 	}
-	public void setCity(String city) {
-		this.city = city;
+	public void setProvince(String province) {
+		this.province = province;
 	}
-    
-    
+	public String getOtp() {
+		return otp;
+	}
+	public void setOtp(String otp) {
+		this.otp = otp;
+	}
+	
 }
