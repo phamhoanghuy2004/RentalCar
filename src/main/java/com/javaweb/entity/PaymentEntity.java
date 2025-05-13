@@ -13,11 +13,11 @@ public class PaymentEntity {
 	
 	
     @Column(name = "date" , nullable = false)
-	@Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 
     @Column(name = "price" , nullable = false)
-	private Integer price;
+	private Long price;
     
     
     @OneToOne(mappedBy = "payment_of_contract")
@@ -60,11 +60,11 @@ public class PaymentEntity {
 		this.date = date;
 	}
 
-	public Integer getPrice() {
+	public Long getPrice() {
 		return price;
 	}
 
-	public void setPrice(Integer price) {
+	public void setPrice(Long price) {
 		this.price = price;
 	}
 	

@@ -13,6 +13,9 @@ public abstract class PersonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @Column(name = "name", unique = true, nullable = false)
+    private String name;
 
     @Column(name = "email", unique = true, nullable = false)
     private String email;
@@ -22,12 +25,12 @@ public abstract class PersonEntity {
     private String password;
     
  
-    @Column(name = "dateofbirth", nullable = false)
+    @Column(name = "dateofbirth", nullable = true)
     @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
     
    
-    @Column(name = "sex", nullable = false)
+    @Column(name = "sex", nullable = true)
     private String sex;
     
     
@@ -102,6 +105,16 @@ public abstract class PersonEntity {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
 	}
 		
     

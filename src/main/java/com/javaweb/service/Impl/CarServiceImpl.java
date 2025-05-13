@@ -1,6 +1,7 @@
 package com.javaweb.service.Impl;
 
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,27 +9,44 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import com.javaweb.repository.AddressRepository;
 import com.javaweb.repository.CarBrandRepository;
 import com.javaweb.repository.CarLineRepository;
 import com.javaweb.repository.CarRepository;
+import com.javaweb.repository.ContractRepository;
+import com.javaweb.repository.CustomerRepository;
 import com.javaweb.repository.ImageRepository;
 import com.javaweb.beans.CarDTO;
+import com.javaweb.beans.ContractDTO;
+import com.javaweb.beans.ResultDTO;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import com.javaweb.beans.request.BookingRequest;
 import com.javaweb.beans.request.InsertCarRequest;
 import com.javaweb.builder.CarSearchBuilder;
 import com.javaweb.entity.AddressEntity;
 import com.javaweb.entity.CarBrandEntity;
 import com.javaweb.entity.CarEntity;
 import com.javaweb.entity.CarLineEntity;
+import com.javaweb.entity.ContractEntity;
+import com.javaweb.entity.CustomerEntity;
 import com.javaweb.entity.ImageEntity;
 import com.javaweb.converter.AddressConverter;
 import com.javaweb.converter.CarConverter;
 import com.javaweb.converter.CarDTOConverter;
 import com.javaweb.converter.CarSearchBuilderConverter;
+import com.javaweb.converter.ContractDTOConverter;
+import com.javaweb.converter.CustomerDTOConverter;
+import com.javaweb.customeExceptions.FiledRequiredException;
+import com.javaweb.customeExceptions.UnauthorizedException;
 import com.javaweb.service.CarService;
+import com.javaweb.util.TokenService;
+import com.nimbusds.jose.JOSEException;
+
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
@@ -51,6 +69,9 @@ public class CarServiceImpl implements CarService{
 	private ImageRepository imageRepository;
 	
 	@Autowired
+	private CustomerRepository  customerRepository;
+	
+	@Autowired
     private ModelMapper modelMapper;
 	
 	@Autowired
@@ -59,6 +80,14 @@ public class CarServiceImpl implements CarService{
 	@Autowired
 	private CarSearchBuilderConverter carSearchBuilderConverter;
 	
+	@Autowired
+	private ContractRepository contractRepository;
+	
+	@Autowired
+	private ContractDTOConverter contractDTOConverter;
+	
+	@Value("${JWT_SECRET}")
+	private String jwtSecret;
 	
 	CarDTO convertToDTO(CarEntity carEntity) {
         return modelMapper.map(carEntity, CarDTO.class);
@@ -150,6 +179,63 @@ public class CarServiceImpl implements CarService{
 		List<CarEntity> listCarEntity = carRepository.findCar(carSearchBuilder);
 		List<CarDTO> listCarDTO = carDTOConverter.convertCarDTO(listCarEntity);
 		return listCarDTO; 
+	}
+
+	@Override
+	public ResultDTO<ContractDTO> bookingCar(BookingRequest bookingRequest, String token) throws JOSEException, ParseException {
+		ResultDTO<ContractDTO> resultDTO = new ResultDTO<>();
+		CustomerEntity customerEntity = null;
+		CarEntity carEntity = carRepository.findById(bookingRequest.getCarId()).orElse(null);
+		
+		 // kiem tra token cua user xem co hop le khong 
+		if (!TokenService.checkToken(token,jwtSecret)) {
+			// quang ra loi 401 yeu cau dang nhap lai
+			throw new UnauthorizedException("Không thể xác thực người dùng vui lòng đăng nhập lại");
+		}
+		
+		Long idCus = TokenService.getId(token);
+		customerEntity = customerRepository.findById(idCus).orElse(null);
+		
+		 if (customerEntity == null) {
+			 throw new UnauthorizedException("Không thể xác thực người dùng vui lòng đăng nhập lại");
+		 }
+		 
+		 if (carEntity == null) {
+			 throw new FiledRequiredException ("Thông tin không đầu đủ!");
+		 }
+		 
+
+		
+		if (contractRepository.checkContract(bookingRequest.getCarId(),bookingRequest.getDateFrom() , bookingRequest.getDateTo()).isEmpty()) {
+			ContractEntity contractEntity = new ContractEntity();
+			contractEntity.setDateFrom(bookingRequest.getDateFrom());
+			contractEntity.setDateTo( bookingRequest.getDateTo());
+			contractEntity.setCustomer(customerEntity);
+			List<CarEntity> listCar = new ArrayList<>();
+			listCar.add(carEntity);
+			contractEntity.setCars(listCar);
+			
+			// load lai doi voi Car
+			if (carEntity.getContracts() == null) {
+				carEntity.setContracts(new ArrayList<>());
+			}
+			carEntity.getContracts().add(contractEntity);
+			
+			contractEntity.setPrice(bookingRequest.getPrice());
+			contractEntity.setStatus("WAIT");
+			ContractEntity result = contractRepository.save(contractEntity);
+			
+			// chuyen doi lai thanh doi tuong DTO 
+			
+			resultDTO.setStatus(true);
+			resultDTO.setData(contractDTOConverter.convertToDTO(contractEntity));
+			resultDTO.setMessage("Tạo hợp đồng thành công! ");
+		}
+		else {
+			resultDTO.setStatus(false);
+			resultDTO.setMessage("Tạo hợp đồng không thành công do trùng lịch! ");
+		}
+		return resultDTO;
 	}
 
 }

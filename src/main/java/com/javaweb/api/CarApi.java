@@ -1,5 +1,6 @@
 package com.javaweb.api;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -9,14 +10,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
 import com.javaweb.beans.CarDTO;
+import com.javaweb.beans.ResultDTO;
+import com.javaweb.beans.request.BookingRequest;
 import com.javaweb.beans.request.InsertCarRequest;
 import com.javaweb.service.CarService;
+import com.nimbusds.jose.JOSEException;
+
+import jakarta.validation.Valid;
 
 
 @RestController
@@ -61,5 +68,12 @@ public class CarApi {
     	ResponseEntity response = carService.insertCar(carRequest);
     	return response;
     }
-
+    
+    @PostMapping("/book")
+    public Object bookingCar (@RequestBody @Valid BookingRequest bookingRequest, @RequestHeader (value = "Authorization", required = false ) String token) throws JOSEException, ParseException {
+    	ResultDTO result = carService.bookingCar(bookingRequest,token);
+    	return result;
+    }
+    
+    
 }

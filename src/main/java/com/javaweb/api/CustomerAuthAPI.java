@@ -1,0 +1,100 @@
+package com.javaweb.api;
+
+import java.text.ParseException;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.javaweb.beans.ResultDTO;
+import com.javaweb.beans.request.ForgotPasswordRequest;
+import com.javaweb.beans.request.GGLoginRequest;
+import com.javaweb.beans.request.LoginRequest;
+import com.javaweb.beans.request.ResetPasswordRequest;
+import com.javaweb.beans.request.VerifyOTPRequest;
+import com.javaweb.beans.CustomerDTO;
+import com.javaweb.service.CustomerService;
+import com.javaweb.util.EmailService;
+import com.javaweb.util.OTPGenerate;
+import com.javaweb.util.TokenService;
+import com.nimbusds.jose.JOSEException;
+import com.nimbusds.jose.KeyLengthException;
+
+
+@RestController
+@RequestMapping("/api/auth")
+public class CustomerAuthAPI {
+    @Autowired
+    private CustomerService customerService;
+
+    @Autowired
+    private OTPGenerate  otpGenerate;
+    
+  
+    @PostMapping(value = "/login")
+    public Object login(@RequestBody @Valid LoginRequest loginRequest) throws KeyLengthException, JOSEException {	
+    	String email = loginRequest.getEmail();
+    	String password = loginRequest.getPassword();
+    	ResultDTO<String> u = customerService.Login(email,password) ;
+        return u ; 
+    }
+    
+    @PostMapping(value = "/ggLogin")
+    public Object loginGG (@RequestBody @Valid GGLoginRequest ggLoginRequest) throws KeyLengthException, JOSEException {
+    	ResultDTO<String> u = customerService.LoginGG(ggLoginRequest) ;
+    	return u;
+    }
+    
+    @PostMapping(value = "/forgot")
+   	public Object forgot(@RequestBody @Valid ForgotPasswordRequest forgotRequest) {
+   	    	String email = forgotRequest.getEmail();
+   	    	ResultDTO<CustomerDTO> result = customerService.Forgot(email);
+   	    	if (result.isStatus()) {
+   	    		String otp = otpGenerate.generateOTP(email);
+   	   	    	EmailService.sendOTP(email, otp);
+   	    	}
+   	        return result; 
+   	    }
+    
+    @PostMapping(value="/verify-otp")
+    public Object OTPCheck (@RequestBody @Valid VerifyOTPRequest verifyOTPRequest) {
+    	
+    	String otp = verifyOTPRequest.getOtp();
+    	String email = verifyOTPRequest.getEmail();
+    	ResultDTO result = new ResultDTO();
+    	
+    	if (otpGenerate.verifyOTP(email, otp,"verify")) {
+    		result.setStatus(true);
+        	result.setMessage("OTP thành công");
+    	}
+        else {
+        	result.setStatus(false);
+        	result.setMessage("OTP sai hoặc hết hạn");
+        }   
+        return result;
+    }
+    
+    @PostMapping(value = "/reset")
+    public Object ResetPass (@RequestBody @Valid ResetPasswordRequest resetRequest) {
+    	String newPass = resetRequest.getNewPassword();
+    	String email = resetRequest.getEmail();
+    	String otp = resetRequest.getOtp();
+    	ResultDTO result = new ResultDTO();
+    	
+    	if (otpGenerate.verifyOTP(email, otp,"reset") && customerService.ResetPass(newPass, email)) {
+    		result.setStatus(true);
+        	result.setMessage("Cập nhật thành công mật khẩu");
+    	}
+    	else {
+    		result.setStatus(false);
+        	result.setMessage("Lỗi không thể cập nhật mật khẩu");
+    	}
+    	return result;
+    }
+    
+    
+}
+

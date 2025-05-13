@@ -11,12 +11,18 @@ public class CarDTO {
 	private String name;
 	private List<String> pictures;
 	private Long price;
-	private String location;
 	private String discount;
 	private String line;
 	private String brand;
+	private AddressDTO addressDTO;
 	
 	
+	public AddressDTO getAddressDTO() {
+		return addressDTO;
+	}
+	public void setAddressDTO(AddressDTO addressDTO) {
+		this.addressDTO = addressDTO;
+	}
 	public String getBrand() {
 		return brand;
 	}
@@ -77,12 +83,5 @@ public class CarDTO {
 	public void setIndentify(String indentify) {
 		this.indentify = indentify;
 	}
-	public String getLocation() {
-		return location;
-	}
-	public void setLocation(String location) {
-		this.location = location;
-	}
-		
 	
 }

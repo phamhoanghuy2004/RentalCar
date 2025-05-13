@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Kết quả thanh toán</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .success {
+            color: #7FFF00;
+        }
+
+        .error {
+            color: #dc3545;
+        }
+
+        .payment-container {
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .payment-container p,
+        .payment-container h3 {
+            font-size: 18px;
+            margin: 12px 0;
+            color: #333333;
+        }
+
+        .payment-container strong {
+            color: #555555;
+        }
+
+        h3 {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="payment-container">
+        <h1 th:text="${result.message != null ? result.message : 'Kết quả thanh toán'}"
+            th:classappend="${result.status != null && result.status == 'success' ? ' success' : ' error'}">
+            Kết quả thanh toán
+        </h1>
+
+        <div th:if="${result.data != null}">
+            <p><strong>Mã hợp đồng:</strong> <span th:text="${result.data.id}"></span></p>
+            <p><strong>Người dùng:</strong> <span th:text="${result.data.customerDTO.name}"></span></p>
+            <h3>Đã thanh toán: <span th:text="${result.data.price}"></span> VND</h3>
+            <p><strong>Thời gian:</strong> <span th:text="${#dates.format(result.data.paymentDTO.date, 'dd/MM/yyyy HH:mm')}"></span></p>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,23 +1,56 @@
 package com.javaweb.beans;
 
+import java.util.Date;
+
+
 public class CustomerDTO {
 	private Integer id;
 	private String email;
-	private int otp;
 	private int status;
+	private Date dateOfBirth;
+	private String sex;
+	private String avatar;  
+	private String name; 
+	private AddressDTO addressDTO;
+	
+	
 	
 
+	public AddressDTO getAddressDTO() {
+		return addressDTO;
+	}
+	public void setAddressDTO(AddressDTO addressDTO) {
+		this.addressDTO = addressDTO;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+	public String getSex() {
+		return sex;
+	}
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+	public String getAvatar() {
+		return avatar;
+	}
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	public int getOtp() {
-		return otp;
-	}
-	public void setOtp(int otp) {
-		this.otp = otp;
 	}
 	public Integer getId() {
 		return id;
