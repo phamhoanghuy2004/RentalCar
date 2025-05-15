@@ -10,5 +10,6 @@ import java.util.List;
 public interface ContractService {
 	public List<ContractInfor> getAllContracts();
 	public ResultDTO<ContractDTO> upDatePayment (Long idContract, Date date, Long price);
+	public List<ContractDTO> getContractByCustomerId (Long customerId);
 	public ContractEntity getContract (Long id);
 }

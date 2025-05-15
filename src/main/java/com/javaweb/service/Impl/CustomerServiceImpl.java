@@ -195,7 +195,8 @@ public class CustomerServiceImpl implements CustomerService {
 			return result;
 		}
 		
-		AddressEntity address = addressConverter.convertToEntityFromCusRequest(request);
+		AddressEntity address = customerEntity.getCustomerAddress();
+		addressConverter.convertToEntityFromCusRequest(request, address);
 		customerEntity.setCustomerAddress(address);
 		
 		customerDTOConverter.convertToEntityFromRequest(request, customerEntity);

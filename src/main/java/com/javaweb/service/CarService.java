@@ -20,6 +20,7 @@ public interface CarService {
 	public List<CarDTO> getNewCar();
 	public List<CarDTO> getSaleCar();
 	public List<CarDTO> getAllCar();
+	public List<CarDTO> getCarByNameActive(String name);
 	public List<CarResponse> getAllCarNoStatus();
 	public List<CarDTO> findCar(Map<String,Object> params);
 	public ResponseEntity insertCar(InsertCarRequest carRequest);

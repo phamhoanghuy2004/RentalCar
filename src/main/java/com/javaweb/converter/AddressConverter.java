@@ -16,7 +16,7 @@ public class AddressConverter {
         return modelMapper.map(insertCarRequest, AddressEntity.class);
     }
     
-    public AddressEntity convertToEntityFromCusRequest (updateProfileRequest request) {
-        return modelMapper.map(request, AddressEntity.class);
+    public void convertToEntityFromCusRequest (updateProfileRequest request, AddressEntity address) {
+    	modelMapper.map(request, address);
     }
 }
