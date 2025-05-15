@@ -94,7 +94,7 @@ public class CustomerServiceImpl implements CustomerService {
 		if(opt.isEmpty()) {
 			result.setStatus(false);
 			result.setData(null);
-			result.setMessage("Email không sai");
+			result.setMessage("Email không tồn tại");
 		} else {
 			CustomerEntity customerEntity = opt.orElse(null);
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -168,7 +168,9 @@ public class CustomerServiceImpl implements CustomerService {
 		Optional<CustomerEntity> userOt = customerRepository.findByEmail(email);
 		if (userOt.isPresent()) {
 			CustomerEntity  cusEntity =  userOt.get();
-			cusEntity.setPassword(pass);
+	        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	        String encodedPassword = encoder.encode(pass);
+	        cusEntity.setPassword(encodedPassword);
 			customerRepository.save(cusEntity);
 			return true;
 		}

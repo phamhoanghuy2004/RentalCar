@@ -110,7 +110,7 @@ public class CarServiceImpl implements CarService{
 
 	@Override
 	public List<CarDTO> getNewCar() {
-		List<CarEntity> listCarEntity = carRepository.findTop7ByStatus("Active");
+		List<CarEntity> listCarEntity = carRepository.findTop7ByStatusOrderByIdDesc("Active");
 		List<CarDTO> listCarDTO = new ArrayList<>();
 		listCarDTO = carDTOConverter.convertCarDTO(listCarEntity);
 		return listCarDTO;
