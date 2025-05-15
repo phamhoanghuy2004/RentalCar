@@ -115,6 +115,15 @@ public class CarServiceImpl implements CarService{
 		listCarDTO = carDTOConverter.convertCarDTO(listCarEntity);
 		return listCarDTO;
 	}
+	
+	@Override
+	public List<CarDTO> getCarByNameActive(String name) {
+		List<CarEntity> listCarEntity = carRepository.findByNameContainingIgnoreCaseAndStatus(name,"Active");
+		List<CarDTO> listCarDTO = new ArrayList<>();
+		listCarDTO = carDTOConverter.convertCarDTO(listCarEntity);
+		return listCarDTO;
+	}
+
 
 	@Override
 	public List<CarDTO> getSaleCar() {

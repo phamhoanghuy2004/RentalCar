@@ -17,5 +17,8 @@ public interface ContractRepository extends JpaRepository<ContractEntity, Long>{
 		    							@Param("dateFromRequest") Date dateFromRequest,
 		    							@Param("dateToRequest") Date dateToRequest);
 	
+	@Query(" SELECT DISTINCT c FROM ContractEntity c  WHERE c.customer.id = :cusID ORDER BY c.id DESC ")
+	List<ContractEntity> getContractByCusId (@Param("cusID") Long cusID);
+	
 	ContractEntity findByIdAndStatus(Long id, String status);
 }

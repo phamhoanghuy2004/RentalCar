@@ -30,6 +30,8 @@ public class ContractServiceImpl implements ContractService {
 	
 	@Autowired
 	private ContractDTOConverter contractDTOConverter;
+	
+
 
 	@Override
 	public ResultDTO<ContractDTO> upDatePayment(Long idContract, Date date, Long price) {
@@ -101,6 +103,16 @@ public class ContractServiceImpl implements ContractService {
 			resultDTO.setMessage("Có lỗi trong quá trình cập nhật trạng thái");
 		}
 		return resultDTO;
+
+	public List<ContractDTO> getContractByCustomerId(Long customerId) {
+		List<ContractDTO> listContractDTO = new ArrayList<>();
+		List<ContractEntity> listContractEntity = contractRepository.getContractByCusId(customerId);
+		for (ContractEntity cE : listContractEntity) {
+			ContractDTO cD = new ContractDTO();
+			cD = contractDTOConverter.convertToDTO(cE);
+			listContractDTO.add(cD);
+		}
+		return listContractDTO;
 	}
 
 }

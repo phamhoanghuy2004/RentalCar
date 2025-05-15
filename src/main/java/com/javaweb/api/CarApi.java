@@ -68,6 +68,12 @@ public class CarApi {
 		List<CarDTO> listCar = carService.findCar(params);
 		return listCar;
 	}
+	
+	@GetMapping(value = "/findByNameActive")
+	public Object findByName (@RequestParam(value = "name", required = false) String name){
+		List<CarDTO> listCar = carService.getCarByNameActive(name);
+		return listCar;
+	}
 
     @PostMapping("/insertCar")
     public ResponseEntity<?> InsertCar(@RequestBody InsertCarRequest carRequest){
