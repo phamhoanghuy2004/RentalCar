@@ -37,6 +37,9 @@ public class TokenService {
 	
 	
 	public static Boolean checkToken (String token, String jwtSecret) throws JOSEException, ParseException  {
+		if (token == null) {
+			return false;
+		}
 		JWSVerifier verifier = new MACVerifier(jwtSecret.getBytes());
 		SignedJWT signedJWT = SignedJWT.parse(token);
 		Date expirateTime  = signedJWT.getJWTClaimsSet().getExpirationTime();

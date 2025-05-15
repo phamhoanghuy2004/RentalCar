@@ -185,7 +185,8 @@ public class CustomerServiceImpl implements CustomerService {
 		if (isValid) {
 			Long id = TokenService.getId(token);
 			Optional<CustomerEntity> optCustomer = customerRepository.findById(id);
-			if (optCustomer.isPresent()) {
+			String role = TokenService.getRole(token);
+			if (optCustomer.isPresent() && role.equals("CUSTOMER")) {
 				// kiem tra xem trong opt co gia tri hay khong
 				CustomerDTO result = customerDTOConverter.convertToDTO(optCustomer.get());
 				return result;
