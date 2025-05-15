@@ -103,6 +103,7 @@ public class ContractServiceImpl implements ContractService {
 			resultDTO.setMessage("Có lỗi trong quá trình cập nhật trạng thái");
 		}
 		return resultDTO;
+	}
 
 	public List<ContractDTO> getContractByCustomerId(Long customerId) {
 		List<ContractDTO> listContractDTO = new ArrayList<>();

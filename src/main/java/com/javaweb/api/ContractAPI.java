@@ -31,6 +31,7 @@ public class ContractAPI {
 	@PutMapping(value = "/update")
 	public ResultDTO updateStatus(@RequestBody UpdateContractRequest request) {
 		return contractService.updateStatus(request);
+	}
 
 	@GetMapping (value = "/getByCustomerId")
 	public Object getByCustomerId (@RequestParam(value = "customerId", required = false) Long customerId) {

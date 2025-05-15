@@ -277,7 +277,7 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public ResultDTO<String> LoginAdmin(String email, String password) throws KeyLengthException, JOSEException {
+	public ResultDTO<String> LoginAdmin (String email, String password) throws KeyLengthException, JOSEException {
 		ResultDTO<String> result = new ResultDTO<String>();
 		Optional<UserEntity> opt  = userRepository.findByEmail(email);
 		if(opt.isEmpty()) {
