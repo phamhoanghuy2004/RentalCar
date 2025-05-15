@@ -14,6 +14,7 @@ public interface CustomerService {
 	public ResultDTO saveUser(UserRequest request);
 	public ResultDTO registerUser(UserRequest userRequest);
 	public ResultDTO<String> Login (String email, String password) throws KeyLengthException, JOSEException; // String la token do
+	public ResultDTO<String> LoginAdmin (String email, String password) throws KeyLengthException, JOSEException; // String la token do
 	public ResultDTO<String> LoginGG (GGLoginRequest ggLoginRequest) throws KeyLengthException, JOSEException;
 	public ResultDTO<CustomerDTO> Forgot (String email);
 	public boolean ResetPass (String pass, String email);

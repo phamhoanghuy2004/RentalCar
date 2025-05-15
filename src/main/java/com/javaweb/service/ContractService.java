@@ -4,6 +4,7 @@ import java.util.Date;
 import com.javaweb.beans.ContractDTO;
 import com.javaweb.beans.ContractInfor;
 import com.javaweb.beans.ResultDTO;
+import com.javaweb.beans.UpdateContractRequest;
 import com.javaweb.entity.ContractEntity;
 import java.util.List;
 
@@ -12,4 +13,5 @@ public interface ContractService {
 	public ResultDTO<ContractDTO> upDatePayment (Long idContract, Date date, Long price);
 	public List<ContractDTO> getContractByCustomerId (Long customerId);
 	public ContractEntity getContract (Long id);
+	public ResultDTO updateStatus(UpdateContractRequest request);
 }

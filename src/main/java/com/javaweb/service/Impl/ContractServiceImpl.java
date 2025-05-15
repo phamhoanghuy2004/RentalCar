@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.javaweb.beans.ContractDTO;
 import com.javaweb.beans.ContractInfor;
 import com.javaweb.beans.ResultDTO;
+import com.javaweb.beans.UpdateContractRequest;
 import com.javaweb.converter.ContractDTOConverter;
 import com.javaweb.entity.ContractEntity;
 import com.javaweb.entity.PaymentEntity;
@@ -89,6 +90,20 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	@Override
+	public ResultDTO updateStatus(UpdateContractRequest request) {
+		ResultDTO resultDTO = new ResultDTO();
+		try {
+			ContractEntity contractEntity = contractRepository.findById(request.getId()).get();
+			contractEntity.setStatus(request.getStatus());
+			contractRepository.save(contractEntity);
+			resultDTO.setStatus(true);
+			resultDTO.setMessage("Cập nhật trạng thái thành công");
+		} catch (Exception e) {
+			resultDTO.setStatus(false);
+			resultDTO.setMessage("Có lỗi trong quá trình cập nhật trạng thái");
+		}
+		return resultDTO;
+
 	public List<ContractDTO> getContractByCustomerId(Long customerId) {
 		List<ContractDTO> listContractDTO = new ArrayList<>();
 		List<ContractEntity> listContractEntity = contractRepository.getContractByCusId(customerId);

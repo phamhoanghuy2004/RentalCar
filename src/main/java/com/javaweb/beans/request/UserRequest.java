@@ -6,6 +6,7 @@ import java.util.Date;
 public class UserRequest {
     private String email;
     private String password;
+    private String name;
     private Date dateOfBirth;
     private String sex;
     private String avatar; 
@@ -28,6 +29,12 @@ public class UserRequest {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public Date getDateOfBirth() {
 		return dateOfBirth;
