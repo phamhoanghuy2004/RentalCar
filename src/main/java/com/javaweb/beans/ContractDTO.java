@@ -1,7 +1,6 @@
 package com.javaweb.beans;
 
 import java.util.Date;
-<<<<<<< HEAD
 import java.util.List;
 
 public class ContractDTO {

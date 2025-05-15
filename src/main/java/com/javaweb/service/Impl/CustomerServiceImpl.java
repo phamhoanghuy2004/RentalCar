@@ -17,8 +17,10 @@ import com.javaweb.customeExceptions.UnauthorizedException;
 import com.javaweb.entity.AddressEntity;
 import com.javaweb.entity.CustomerEntity;
 import com.javaweb.entity.RoleEntity;
+import com.javaweb.entity.UserEntity;
 import com.javaweb.repository.AddressRepository;
 import com.javaweb.repository.RoleRepository;
+import com.javaweb.repository.UserRepository;
 import com.javaweb.repository.CustomerRepository;
 import com.javaweb.service.CustomerService;
 import com.javaweb.util.TokenService;
@@ -38,6 +40,9 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Autowired
     private CustomerRepository customerRepository;
+	
+	@Autowired
+    private UserRepository userRepository;
 	
 	@Autowired
 	private RoleRepository roleRepository;
@@ -85,17 +90,24 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public ResultDTO<String> Login(String email, String password) throws KeyLengthException, JOSEException {
 		ResultDTO<String> result = new ResultDTO<String>();
-		Optional<CustomerEntity> opt  = customerRepository.findByEmailAndPassword(email,password);
-		CustomerEntity customerEntity = opt.orElse(null);
-		if (customerEntity == null || customerEntity.getStatus() == 0) {
+		Optional<CustomerEntity> opt  = customerRepository.findByEmail(email);
+		if(opt.isEmpty()) {
 			result.setStatus(false);
 			result.setData(null);
-			result.setMessage("Sai tài khoản hoặc mật khẩu");
-		}
-		else {
-			result.setStatus(true);
-			result.setData(TokenService.genarateToken(customerEntity.getEmail(), customerEntity.getId(),"CUSTOMER" ,jwtSecret));
-			result.setMessage("Đăng nhập thành công");
+			result.setMessage("Email không sai");
+		} else {
+			CustomerEntity customerEntity = opt.orElse(null);
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			if (customerEntity == null || customerEntity.getStatus() == 0 || !encoder.matches(password, customerEntity.getPassword())) {
+				result.setStatus(false);
+				result.setData(null);
+				result.setMessage("Sai tài khoản hoặc mật khẩu");
+			}
+			else {
+				result.setStatus(true);
+				result.setData(TokenService.genarateToken(customerEntity.getEmail(), customerEntity.getId(),"CUSTOMER" ,jwtSecret));
+				result.setMessage("Đăng nhập thành công");
+			}
 		}
 		return result;
 	}
@@ -251,6 +263,7 @@ public class CustomerServiceImpl implements CustomerService {
 	        customer.setPassword(encodedPassword);
 			
 			customer.setCustomerAddress(newAddress);
+			customer.setStatus(1);
 			customerRepository.save(customer);
 			result.setStatus(true);
 			result.setMessage("Đăng ký thành công");
@@ -258,6 +271,31 @@ public class CustomerServiceImpl implements CustomerService {
 			result.setStatus(false);
 			result.setMessage("Xảy ra lỗi trong quá trình lưu dữ liệu");
 			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public ResultDTO<String> LoginAdmin(String email, String password) throws KeyLengthException, JOSEException {
+		ResultDTO<String> result = new ResultDTO<String>();
+		Optional<UserEntity> opt  = userRepository.findByEmail(email);
+		if(opt.isEmpty()) {
+			result.setStatus(false);
+			result.setData(null);
+			result.setMessage("Email không tồn tại");
+		} else {
+			UserEntity userEntity = opt.orElse(null);
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			if (userEntity == null || userEntity.getStatus() == 0 || !encoder.matches(password, userEntity.getPassword())) {
+				result.setStatus(false);
+				result.setData(null);
+				result.setMessage("Sai tài khoản hoặc mật khẩu");
+			}
+			else {
+				result.setStatus(true);
+				result.setData(TokenService.genarateToken(userEntity.getEmail(), userEntity.getId(),"ADMIN" ,jwtSecret));
+				result.setMessage("Đăng nhập thành công");
+			}
 		}
 		return result;
 	}

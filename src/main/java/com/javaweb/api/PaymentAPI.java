@@ -24,12 +24,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.javaweb.beans.ContractDTO;
+import com.javaweb.beans.PaymentDTO;
 import com.javaweb.beans.PaymentResDTO;
 import com.javaweb.beans.ResultDTO;
 import com.javaweb.config.Config;
 import com.javaweb.customeExceptions.FiledRequiredException;
 import com.javaweb.entity.ContractEntity;
+import com.javaweb.entity.PaymentEntity;
 import com.javaweb.service.ContractService;
+import com.javaweb.service.PaymentService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -39,6 +42,9 @@ public class PaymentAPI {
 	
 	@Autowired
 	private ContractService contractService;
+	
+	@Autowired
+	private PaymentService paymentService;
 	
 	@GetMapping("/create_payment")
 	public ResponseEntity<?> createPayment(@RequestParam("idContract") Long idContract, @RequestParam("price") Long price  , HttpServletRequest request) throws UnsupportedEncodingException {
@@ -207,5 +213,10 @@ public class PaymentAPI {
 	        e.printStackTrace();
 	        return null;
 		}
+	}
+	
+	@GetMapping(value = "/getAll")
+	public List<PaymentDTO> getAll(){
+		return paymentService.getAll();
 	}
 }

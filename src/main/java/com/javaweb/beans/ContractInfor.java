@@ -11,6 +11,7 @@ public class ContractInfor {
     private String nameCustomer;
     private String nameCar;
     private String indentifyCar;
+    
 	public Long getId() {
 		return id;
 	}

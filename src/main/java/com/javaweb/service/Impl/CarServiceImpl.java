@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+
 import com.javaweb.repository.AddressRepository;
 import com.javaweb.repository.CarBrandRepository;
 import com.javaweb.repository.CarLineRepository;
@@ -24,6 +24,7 @@ import com.javaweb.beans.ResultDTO;
 import com.javaweb.beans.CarResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import com.javaweb.beans.request.BookingRequest;
 import com.javaweb.beans.request.InsertCarRequest;
 import com.javaweb.builder.CarSearchBuilder;
