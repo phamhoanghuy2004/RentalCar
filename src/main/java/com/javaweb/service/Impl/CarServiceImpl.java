@@ -213,16 +213,15 @@ public class CarServiceImpl implements CarService{
 		 // kiem tra token cua user xem co hop le khong 
 		if (!TokenService.checkToken(token,jwtSecret)) {
 			// quang ra loi 401 yeu cau dang nhap lai
-			throw new UnauthorizedException("Không thể xác thực người dùng vui lòng đăng nhập lại");
+			throw new UnauthorizedException("Không thể xác thực người dùng vui lòng đăng nhập lại để book xe");
 		}
 		
 		Long idCus = TokenService.getId(token);
 		customerEntity = customerRepository.findById(idCus).orElse(null);
 		
 		 if (customerEntity == null) {
-			 throw new UnauthorizedException("Không thể xác thực người dùng vui lòng đăng nhập lại");
+			 throw new UnauthorizedException("Không thể xác thực người dùng vui lòng đăng nhập lại để book xe");
 		 }
-		 
 		 if (carEntity == null) {
 			 throw new FiledRequiredException ("Thông tin không đầu đủ!");
 		 }

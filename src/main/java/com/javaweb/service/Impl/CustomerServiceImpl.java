@@ -199,23 +199,26 @@ public class CustomerServiceImpl implements CustomerService {
 	public ResultDTO updateProfile(updateProfileRequest request, String token) throws JOSEException, ParseException {
 		ResultDTO result = new ResultDTO<>();
 		if (!TokenService.checkToken(token,jwtSecret)) {
-			throw new UnauthorizedException("Không thể xác thực người dùng vui lòng đăng nhập lại");
+			throw new UnauthorizedException("Không thể xác thực người dùng vui lòng đăng nhập lại để thực hiện");
 		}
 		
 		Long idCus = TokenService.getId(token);
 		CustomerEntity customerEntity = customerRepository.findById(idCus).orElse(null);
 		if (customerEntity == null) {
-			result.setStatus(false);
-			result.setMessage("Không thể tìm thấy người dùng vui lòng đăng nhập lại!");
-			return result;
+			throw new UnauthorizedException("Không thể xác thực người dùng vui lòng đăng nhập lại để thực hiện");
 		}
 		
 		AddressEntity address = customerEntity.getCustomerAddress();
+		if (address == null) {
+			address = new AddressEntity(); // Cập nhật lại biến address
+		}
+		
 		addressConverter.convertToEntityFromCusRequest(request, address);
 		customerEntity.setCustomerAddress(address);
 		
 		customerDTOConverter.convertToEntityFromRequest(request, customerEntity);
 		customerRepository.save(customerEntity);
+		
 		result.setStatus(true);
 		result.setMessage("Cập nhật thông tin thành công");
 		return result;
