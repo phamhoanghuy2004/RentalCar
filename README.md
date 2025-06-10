@@ -1,7 +1,6 @@
 # 🚗 RentalCar - Spring Boot Project
 
-Đây là đồ án Spring Boot API Web Service ứng dụng mô hình MVC cho hệ thống thuê xe online và quản lý hệ thống thuê xe online trong bộ môn lập trình di động tại trường đại học SPKT TPHCM
-Tích hợp với cơ sở dữ liệu MySQL,  dùng Redis, JWT để xác thực..
+Đây là đồ án Spring Boot API Web Service ứng dụng mô hình MVC cho hệ thống thuê xe online và quản lý hệ thống thuê xe online trong bộ môn lập trình di động tại trường đại học SPKT TPHCM. Tích hợp với cơ sở dữ liệu MySQL,  dùng Redis, JWT để xác thực..
 
 ---
 
