@@ -1,6 +1,7 @@
 # 🚗 RentalCar - Spring Boot Project
 
-Đây là đồ án Spring Boot API Web Service cho hệ thống thuê xe online và quản lý hệ thống thuê xe online trong bộ môn lập trình di động, tích hợp với cơ sở dữ liệu MySQL, Redis, JWT để xác thực..
+Đây là đồ án Spring Boot API Web Service ứng dụng mô hình MVC cho hệ thống thuê xe online và quản lý hệ thống thuê xe online trong bộ môn lập trình di động tại trường đại học SPKT TPHCM
+Tích hợp với cơ sở dữ liệu MySQL,  dùng Redis, JWT để xác thực..
 
 ---
 
@@ -8,8 +9,8 @@
 
 Trước khi chạy dự án, hãy đảm bảo bạn đã cài đặt:
 
-- ✅ Java JDK 17 trở lên
-- ✅ Maven 3.6+
+- ✅ Java JDK 22 trở lên
+- ✅ Maven 3.9.9
 - ✅ MySQL (dùng Cloud DB của Aiven)
 - ✅ Redis (cài local trên port 6379)
 - ✅ IDE như IntelliJ IDEA, Eclipse hoặc VSCode
@@ -22,10 +23,10 @@ Trước khi chạy dự án, hãy đảm bảo bạn đã cài đặt:
 ```bash
 git clone https://github.com/phamhoanghuy2004/RentalCar.git
 cd RentalCar
+```
 
 ### 2. Cấu hình kết nối
-
-Mở file src/main/resources/application.properties và chắc chắn cấu hình đúng như sau
+Mở file src/main/resources/application.properties và chắc chắn cấu hình đúng như sau:
 ```bash
 server.port=8081
 server.address=0.0.0.0
@@ -41,8 +42,7 @@ spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
 upload.directory=uploads
 spring.servlet.multipart.max-file-size=10MB
 spring.servlet.multipart.max-request-size=20MB
-
----
+```
 
 ### 3. Cấu hình các biến môi trường
 DB_PASSWORD = AVNS_439qsgZdIKzTmluCfBg
@@ -51,13 +51,14 @@ DB_USER = avnadmin
 JWT_SECRET = dALEq7X6po7DFjeXCbvQOxiHuil9pdtO6lNED5Q849BY+hRaVeKwFjbjHtsd+FDo
 
 ### 4. Build và chạy ứng dụng
-bash
+```bash
 mvn clean install
 mvn spring-boot:run
+```
 
 ---
 
-👤 Thông tin tác giả
+## 👤 Thông tin tác giả
 Tác giả: Phạm Hoàng Huy
 📧 Email: phamhoanghuy.2000vn@gmail.com
 Tác giả: Trần Thanh Nhã
