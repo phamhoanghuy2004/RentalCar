@@ -44,10 +44,10 @@ spring.servlet.multipart.max-request-size=20MB
 ```
 
 ### 3. Cấu hình các biến môi trường
-DB_PASSWORD = AVNS_439qsgZdIKzTmluCfBg
-DB_URL = jdbc:mysql://mysql-2cc2c868-phamhoanghuy-96f0.e.aivencloud.com:15293/rentalcar?ssl-mode=REQUIRED
-DB_USER = avnadmin
-JWT_SECRET = dALEq7X6po7DFjeXCbvQOxiHuil9pdtO6lNED5Q849BY+hRaVeKwFjbjHtsd+FDo
+- DB_PASSWORD = AVNS_439qsgZdIKzTmluCfBg
+- DB_URL = jdbc:mysql://mysql-2cc2c868-phamhoanghuy-96f0.e.aivencloud.com:15293/rentalcar?ssl-mode=REQUIRED
+- DB_USER = avnadmin
+- JWT_SECRET = dALEq7X6po7DFjeXCbvQOxiHuil9pdtO6lNED5Q849BY+hRaVeKwFjbjHtsd+FDo
 
 ### 4. Build và chạy ứng dụng
 ```bash
@@ -58,7 +58,7 @@ mvn spring-boot:run
 ---
 
 ## 👤 Thông tin tác giả
-Tác giả: Phạm Hoàng Huy
+- Tác giả: Phạm Hoàng Huy
 📧 Email: phamhoanghuy.2000vn@gmail.com
-Tác giả: Trần Thanh Nhã
+- Tác giả: Trần Thanh Nhã
 📧 Email: ttn04042004@gmail.com
