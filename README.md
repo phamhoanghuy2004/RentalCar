@@ -23,9 +23,8 @@ Trước khi chạy dự án, hãy đảm bảo bạn đã cài đặt:
 git clone https://github.com/phamhoanghuy2004/RentalCar.git
 cd RentalCar
 
----
-
 ### 2. Cấu hình kết nối
+
 Mở file src/main/resources/application.properties và chắc chắn cấu hình đúng như sau
 ```bash
 server.port=8081
