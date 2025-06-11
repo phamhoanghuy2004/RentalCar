@@ -17,6 +17,15 @@
     - Thống kê doanh thu 
 ---
 
+## ⚙️ Công nghệ sử dụng
+- Spring Boot (REST API)
+- Spring Security + JWT
+- MySQL
+- JavaMail (OTP)
+- Maven
+- JPA (Hibernate)
+---
+
 ## 📦 Yêu cầu hệ thống
 
 Trước khi chạy dự án, hãy đảm bảo bạn đã cài đặt:
