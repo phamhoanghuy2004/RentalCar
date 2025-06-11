@@ -2,7 +2,12 @@
 
 - RentalCar là một dự án backend sử dụng Spring Boot để xây dựng các API Web Services chuẩn REST cho hệ thống thuê xe trực tuyến
 - Dự án cung cấp đầy đủ các chức năng phục vụ cho quy trình thuê xe từ phía người dùng và quản trị viên, bao gồm:
-  + Đăng ký tài khoản
+  - Đối với người dùng 
+    + Đăng ký, đăng nhập bằng gmail
+    + Khôi phục mật khẩu
+    + Cập nhật thông tin người dùng
+    + Tìm kiếm xe, có bộ lọc để cụ thể hóa mục tiêu
+    + Xem chi tiết thông tin xe (hình ảnh, mô tả, giá cả,...)
 ---
 
 ## 📦 Yêu cầu hệ thống
