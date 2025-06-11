@@ -16,23 +16,36 @@ import com.javaweb.beans.ResultDTO;
 import com.javaweb.beans.UpdateContractRequest;
 import com.javaweb.service.ContractService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 
 @RestController
 @RequestMapping(value = "/api/contract")
+@Tag(name = "Contract API", description = "Các API liên quan đến hợp đồng thuê xe")
 public class ContractAPI {
 	@Autowired
 	private ContractService contractService;
 	
+	@Operation(
+			summary = "Lấy tất cả các hợp đồng thuê xe của khách hàng"
+	)
 	@GetMapping(value = "/getAll")
 	public List<ContractInfor> getAllContract(){
 		return contractService.getAllContracts();
 	}
 	
+	@Operation(
+			summary = "Cập nhật trạng thái hợp đồng thuê xe của khách hàng"
+	)
 	@PutMapping(value = "/update")
 	public ResultDTO updateStatus(@RequestBody UpdateContractRequest request) {
 		return contractService.updateStatus(request);
 	}
-
+	
+	@Operation(
+			summary = "Lấy tất cả hợp đồng của một khách hàng"
+	)
 	@GetMapping (value = "/getByCustomerId")
 	public Object getByCustomerId (@RequestParam(value = "customerId", required = false) Long customerId) {
 		List<ContractDTO> result = contractService.getContractByCustomerId(customerId);
