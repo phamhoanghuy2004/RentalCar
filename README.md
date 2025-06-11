@@ -1,15 +1,15 @@
-# 🚗 RentalCar - Spring Boot Project
+# 🚗 RentalCar - Giới thiệu
 
-- Đây là project Spring Boot API Web Service ứng dụng mô hình MVC cho hệ thống thuê xe online và quản lý hệ thống thuê xe online trong bộ môn lập trình di động tại trường đại học SPKT TPHCM
-- Tích hợp với cơ sở dữ liệu MySQL,  dùng Redis, JWT để xác thực..
-
+- RentalCar là một dự án backend sử dụng Spring Boot để xây dựng các API Web Services chuẩn REST cho hệ thống thuê xe trực tuyến
+- Dự án cung cấp đầy đủ các chức năng phục vụ cho quy trình thuê xe từ phía người dùng và quản trị viên, bao gồm:
+  + Đăng ký tài khoản
 ---
 
 ## 📦 Yêu cầu hệ thống
 
 Trước khi chạy dự án, hãy đảm bảo bạn đã cài đặt:
 
-- ✅ Java JDK 22 trở lên
+- ✅ Java JDK 22
 - ✅ Maven 3.9.9
 - ✅ MySQL (dùng Cloud DB của Aiven)
 - ✅ Redis (cài local trên port 6379)
