@@ -21,14 +21,27 @@ http://localhost:8081/swagger-ui/index.html#/
 ```
 ---
 
-<p align="center">
-  <img src="image/anh(1).png" width="200" style="border:1px solid #ccc; padding:5px; border-radius:10px;"/>
-  <img src="image/anh(2).png" width="200" style="border:1px solid #ccc; padding:5px; border-radius:10px;"/>
-  <img src="image/anh(3).png" width="200" style="border:1px solid #ccc; padding:5px; border-radius:10px;"/>
-  <img src="image/anh(4).png" width="200" style="border:1px solid #ccc; padding:5px; border-radius:10px;"/>
-  <img src="image/anh(5).png" width="200" style="border:1px solid #ccc; padding:5px; border-radius:10px;"/>
-  <img src="image/anh(6).png" width="200" style="border:1px solid #ccc; padding:5px; border-radius:10px;"/>
-</p>
+<div style="text-align: center;">
+  <div>
+    <img src="image/anh(1).png" width="200" style="border:1px solid #ccc; padding:5px; border-radius:10px; margin-bottom: 10px;" />
+  </div>
+  <div>
+    <img src="image/anh(2).png" width="200" style="border:1px solid #ccc; padding:5px; border-radius:10px; margin-bottom: 10px;" />
+  </div>
+  <div>
+    <img src="image/anh(3).png" width="200" style="border:1px solid #ccc; padding:5px; border-radius:10px; margin-bottom: 10px;" />
+  </div>
+  <div>
+    <img src="image/anh(4).png" width="200" style="border:1px solid #ccc; padding:5px; border-radius:10px; margin-bottom: 10px;" />
+  </div>
+  <div>
+    <img src="image/anh(5).png" width="200" style="border:1px solid #ccc; padding:5px; border-radius:10px; margin-bottom: 10px;" />
+  </div>
+  <div>
+    <img src="image/anh(6).png" width="200" style="border:1px solid #ccc; padding:5px; border-radius:10px;" />
+  </div>
+</div>
+
 
 ## ⚙️ Công nghệ sử dụng
 - Spring Boot (REST API)
