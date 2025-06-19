@@ -23,22 +23,22 @@ http://localhost:8081/swagger-ui/index.html#/
 
 <div style="text-align: center;">
   <div>
-    <img src="image/anh(1).png" width="800" style="border:1px solid #ccc; padding:5px; border-radius:10px; margin-bottom: 30px;" />
+    <img src="image/anh(1).png" width="900" style="border:1px solid #ccc; padding:5px; border-radius:10px; margin-bottom: 30px;" />
   </div>
   <div>
-    <img src="image/anh(2).png" width="800" style="border:1px solid #ccc; padding:5px; border-radius:10px; margin-bottom: 30px;" />
+    <img src="image/anh(2).png" width="900" style="border:1px solid #ccc; padding:5px; border-radius:10px; margin-bottom: 30px;" />
   </div>
   <div>
-    <img src="image/anh(3).png" width="800" style="border:1px solid #ccc; padding:5px; border-radius:10px; margin-bottom: 30px;" />
+    <img src="image/anh(3).png" width="900" style="border:1px solid #ccc; padding:5px; border-radius:10px; margin-bottom: 30px;" />
   </div>
   <div>
-    <img src="image/anh(4).png" width="800" style="border:1px solid #ccc; padding:5px; border-radius:10px; margin-bottom: 30px;" />
+    <img src="image/anh(4).png" width="900" style="border:1px solid #ccc; padding:5px; border-radius:10px; margin-bottom: 30px;" />
   </div>
   <div>
-    <img src="image/anh(5).png" width="800" style="border:1px solid #ccc; padding:5px; border-radius:10px; margin-bottom: 30px;" />
+    <img src="image/anh(5).png" width="900" style="border:1px solid #ccc; padding:5px; border-radius:10px; margin-bottom: 30px;" />
   </div>
   <div>
-    <img src="image/anh(6).png" width="800" style="border:1px solid #ccc; padding:5px; border-radius:10px;" />
+    <img src="image/anh(6).png" width="900" style="border:1px solid #ccc; padding:5px; border-radius:10px;" />
   </div>
 </div>
 
