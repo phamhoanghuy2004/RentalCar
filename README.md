@@ -14,7 +14,11 @@
   - Đối với quản trị viên:
     - Quản lý hãng xe
     - Quản lý xe
-    - Thống kê doanh thu 
+    - Thống kê doanh thu
+- Mọi người có thể xem các API và test các API sau khi đã clone về với link sau đây:
+```bash
+http://localhost:8081/swagger-ui/index.html#/
+```
 ---
 
 ## ⚙️ Công nghệ sử dụng
